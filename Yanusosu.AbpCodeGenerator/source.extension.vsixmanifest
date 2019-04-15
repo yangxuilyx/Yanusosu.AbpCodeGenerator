@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="Yanusosu.AbpCodeGenerator.183d480e-228e-4a89-b37d-6148c29b7c33" Version="1.0" Language="en-US" Publisher="杨绪" />
+    <Identity Id="Yanusosu.AbpCodeGenerator.baccefc4-64b3-4e2d-95fc-36383ea57807" Version="1.0" Language="en-US" Publisher="杨绪" />
     <DisplayName>Yanusosu.AbpCodeGenerator</DisplayName>
     <Description>Empty VSIX Project.</Description>
   </Metadata>
