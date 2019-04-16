@@ -15,8 +15,11 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.LanguageServices;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Yanusosu.AbpCodeGenerator.Forms;
+using Yanusosu.AbpCodeGenerator.Models;
 
 namespace Yanusosu.AbpCodeGenerator
 {
@@ -105,64 +108,29 @@ namespace Yanusosu.AbpCodeGenerator
 
             var ideActiveDocument = ide.ActiveDocument;
 
-            //if (ideActiveDocument == null || ideActiveDocument.Name == null || ideActiveDocument.Name.EndsWith("cs"))
-            //{
-            //    MessageBox.Show("请选择C#文件", "错误");
-            //}
-            //else
+            var name = ideActiveDocument.Name;
+            if (ideActiveDocument?.Name == null || !name.EndsWith("cs"))
+            {
+                MessageBox.Show("请选择C#文件", "错误");
+            }
+            else
             {
                 var file = ideActiveDocument.FullName;
-                var projectName = ideActiveDocument.ProjectItem;
 
-                SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(file, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)));
-                var firstNode = syntaxTree.GetRoot().DescendantNodes((SyntaxNode p) => !(p is ClassDeclarationSyntax)).OfType<ClassDeclarationSyntax>().FirstOrDefault();
+                new MainForm(new SolutionModel()
+                {
+                    SelectedFilePath = file,
+                    SelectFileName = name
+                }).ShowDialog();
 
-                var nameSpace = syntaxTree.GetRoot().DescendantNodes((SyntaxNode p) => !(p is NamespaceDeclarationSyntax)).OfType<NamespaceDeclarationSyntax>().FirstOrDefault()?.Name.ToString();
+                //SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(file, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)));
+                //var firstNode = syntaxTree.GetRoot().DescendantNodes((SyntaxNode p) => !(p is ClassDeclarationSyntax)).OfType<ClassDeclarationSyntax>().FirstOrDefault();
 
-                var entityModel = new EntityModel();
-                GetEntityBaseClassNamesAndEntityKeyTypeStr(entityModel,firstNode);
+                //var nameSpace = syntaxTree.GetRoot().DescendantNodes((SyntaxNode p) => !(p is NamespaceDeclarationSyntax)).OfType<NamespaceDeclarationSyntax>().FirstOrDefault()?.Name.ToString();
+
+                //var entityModel = new EntityModel();
+                //GetEntityBaseClassNamesAndEntityKeyTypeStr(entityModel,firstNode);
             }
         }
-        private static void GetEntityBaseClassNamesAndEntityKeyTypeStr(EntityModel entityMeta, ClassDeclarationSyntax classNode)
-        {
-            if (classNode.BaseList == null || classNode.BaseList.Types.Count <= 0)
-            {
-                return;
-            }
-            List<string> list = (from a in classNode.BaseList.Types
-                select a.ToString()).ToList();
-            string text = list.First();
-            list.RemoveRange(0, 1);
-            if (text.Length <= 2 || !text.StartsWith("I") || !char.IsUpper(text[1]))
-            {
-                entityMeta.BaseClassName = text;
-                string empty = string.Empty;
-                Match match = Regex.Match(text, ".*?<(.*?)>");
-                string entityKeyName;
-                if (match != null && match.Success)
-                {
-                    entityKeyName = match.Groups[1].Value;
-                    empty = text.Replace("<", "Dto<");
-                }
-                else
-                {
-                    entityKeyName = "int";
-                    empty = text + "Dto";
-                }
-                entityMeta.BaseClassNameList = string.Join(",", list);
-                entityMeta.BaseClassDtoName = empty;
-                entityMeta.EntityKeyName = entityKeyName;
-            }
-        }
-
-    }
-
-    internal class EntityModel
-
-    {
-        public string BaseClassName { get; set; }
-        public string BaseClassNameList { get; set; }
-        public string BaseClassDtoName { get; set; }
-        public string EntityKeyName { get; set; }
     }
 }
