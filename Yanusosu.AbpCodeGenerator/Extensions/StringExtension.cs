@@ -1,9 +1,33 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Yanusosu.AbpCodeGenerator.Extensions
 {
     public static class StringExtension
     {
+        private static Regex R = new Regex("[A-Z]");
+
+        public static List<string> ConvertLowerSplitArray(this string str)
+        {
+            List<string> list = new List<string>();
+            char[] array = str.ToCharArray();
+            bool flag = true;
+            string text = string.Empty;
+            char[] array2 = array;
+            for (int i = 0; i < array2.Length; i++)
+            {
+                char c = array2[i];
+                if (R.IsMatch(c.ToString()) && !flag)
+                {
+                    list.Add(text);
+                    text = string.Empty;
+                }
+                text += c.ToString().ToLower();
+                flag = false;
+            }
+            list.Add(text);
+            return list;
+        }
         public static string ToCamelCase(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,14 +8,12 @@ using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.VisualStudio.OLE.Interop;
-using RazorEngine;
+using Yanusosu.AbpCodeGenerator.CodeAnalysis;
 using Yanusosu.AbpCodeGenerator.Extensions;
-using Yanusosu.AbpCodeGenerator.Models;
 
-namespace Yanusosu.AbpCodeGenerator.CodeAnalysis
+namespace Yanusosu.AbpCodeGenerator.Models
 {
-    public class GeneratorModuleViewModel
+    public class GeneratorModule
     {
         public string EntityKeyName { get; set; }
 
@@ -22,11 +21,33 @@ namespace Yanusosu.AbpCodeGenerator.CodeAnalysis
 
         public string CamelCaseName { get; set; }
 
+        public string SplitName { get; set; }
+
         public string Namespace { get; set; }
 
+        /// <summary>
+        /// 解决方案命名空间：命名空间第一第二段
+        /// </summary>
+        public string SolutionNameSpace { get; set; }
+
+        /// <summary>
+        /// 公司名称：命名空间第一段
+        /// </summary>
+        public string CompanyName { get; set; }
+
+        /// <summary>
+        /// 项目名称：命名空间第二段
+        /// </summary>
+        public string ConstName { get; set; }
+
+        /// <summary>
+        /// 模块名称：命名空间第四段
+        /// </summary>
         public string ModuleName { get; set; }
 
-        public static GeneratorModuleViewModel GenerateModel(SolutionModel solution)
+        public List<MetaColumnInfo> MetaColumnInfos { get; set; }
+
+        public static GeneratorModule GenerateModel(SolutionModel solution)
         {
             /**
            * 需要获取：
@@ -37,7 +58,7 @@ namespace Yanusosu.AbpCodeGenerator.CodeAnalysis
            * 7.Meta数据
            */
 
-            GeneratorModuleViewModel entityModel = new GeneratorModuleViewModel();
+            GeneratorModule entityModel = new GeneratorModule();
 
             SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(solution.SelectedFilePath, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)));
             var firstNode = syntaxTree.GetFirstClassNode();
@@ -48,9 +69,34 @@ namespace Yanusosu.AbpCodeGenerator.CodeAnalysis
             entityModel.CamelCaseName = entityModel.Name.ToCamelCase();
             entityModel.ModuleName = GetModuleName(entityModel.Namespace, entityModel.Name);
 
-            var razorEngineService = Engine.Razor;
+            var convertLowerSplitArray = entityModel.Name.ConvertLowerSplitArray();
+            entityModel.SplitName = string.Join("-", convertLowerSplitArray);
+
+            // 获取属性
+            GetProperties(entityModel, firstNode);
 
             return entityModel;
+        }
+
+
+        private static void GetProperties(GeneratorModule entityModel, ClassDeclarationSyntax classNode)
+        {
+            entityModel.MetaColumnInfos = (from p in classNode.GetProperties()
+                                           select new MetaColumnInfo()
+                                           {
+                                               StrDataType = p.Type.ToString(),
+                                               Name = p.Identifier.Text,
+                                               DisplayName = p.GetAnnotationStr(),
+                                               CamelCaseName = p.Identifier.Text.ToCamelCase(),
+                                               IsSimpleProperty = p.IsSimpleProperty(),
+                                               IsRelation = p.IsRelation(),
+                                               IsCollection = p.IsCollection(),
+                                               AttributesList = p.AttributeLists.GetFilteredAttributeStringList(),
+
+                                               IsCreateVisible = true,
+                                               IsDtoVisible = true,
+                                               IsUpdateVisible = true,
+                                           }).ToList();
         }
 
         private static string GetModuleName(string namespaceStr, string name)

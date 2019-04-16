@@ -1,0 +1,32 @@
+/*
+* 文  件 名 :    @(Model.Name)AppService.cs
+* 描      述 :    @(Model.DisplayName)服务实现
+* 创建时间 :    @(@DateTime.Now.ToString())
+* ===============================================================================
+* Copyright © Yanusosu 2019 . All rights reserved.
+* ===============================================================================
+*/
+
+using System.Linq;
+using Abp.Application.Services;
+using Abp.Domain.Repositories;
+using @(Model.Namespace).Authorization;
+using @(Model.Namespace).Dto;
+
+namespace @(Model.Namespace)
+{
+    public class @(Model.Name)AppService : AsyncCrudAppService<@(Model.Name),@(Model.Name)Dto,@(Model.EntityKeyName),Paged@(Model.Name)ResultRequestDto,Create@(Model.Name)Dto,Update@(Model.Name)Dto>, I@(Model.Name)AppService
+    {
+        public @(Model.Name)AppService(IRepository<@(Model.Name), @(Model.EntityKeyName)> repository) : base(repository)
+        {
+            CreatePermissionName = @(Model.Name)AppPermissions.Create_@(Model.Name);
+            UpdatePermissionName = @(Model.Name)AppPermissions.Update_@(Model.Name);
+            DeletePermissionName = @(Model.Name)AppPermissions.Delete_@(Model.Name);
+        }
+
+        protected override IQueryable<@(Model.Name)> CreateFilteredQuery(Paged@(Model.Name)ResultRequestDto input)
+        {
+            return Repository.GetAll();
+        }
+    }
+}

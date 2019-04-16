@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -117,19 +118,7 @@ namespace Yanusosu.AbpCodeGenerator
             {
                 var file = ideActiveDocument.FullName;
 
-                new MainForm(new SolutionModel()
-                {
-                    SelectedFilePath = file,
-                    SelectFileName = name
-                }).ShowDialog();
-
-                //SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(File.ReadAllText(file, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)));
-                //var firstNode = syntaxTree.GetRoot().DescendantNodes((SyntaxNode p) => !(p is ClassDeclarationSyntax)).OfType<ClassDeclarationSyntax>().FirstOrDefault();
-
-                //var nameSpace = syntaxTree.GetRoot().DescendantNodes((SyntaxNode p) => !(p is NamespaceDeclarationSyntax)).OfType<NamespaceDeclarationSyntax>().FirstOrDefault()?.Name.ToString();
-
-                //var entityModel = new EntityModel();
-                //GetEntityBaseClassNamesAndEntityKeyTypeStr(entityModel,firstNode);
+                new MainWindow(new SolutionModel() { SelectFileName = name, SelectedFilePath = file }).ShowDialog();
             }
         }
     }

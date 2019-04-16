@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Yanusosu.AbpCodeGenerator.WPF.Properties
+namespace WpfApp1.Properties
 {
 
 

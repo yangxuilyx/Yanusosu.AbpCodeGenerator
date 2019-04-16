@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Yanusosu.AbpCodeGenerator.WPF
+namespace WpfApp1
 {
     /// <summary>
     /// App.xaml 的交互逻辑
