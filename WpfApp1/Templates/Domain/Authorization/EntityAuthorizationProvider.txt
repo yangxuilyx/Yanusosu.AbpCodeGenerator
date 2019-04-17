@@ -31,7 +31,7 @@ namespace @(Model.Namespace).Authorization
 
         private static ILocalizableString L(string name)
         {
-            return new LocalizableString(name, @{@Model.ConstName}Consts.LocalizationSourceName);
+            return new LocalizableString(name, @(Model.ConstName)Consts.LocalizationSourceName);
         }
     }
 }

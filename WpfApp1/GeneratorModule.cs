@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Yanusosu.AbpCodeGenerator.Extensions;
 
 namespace Yanusosu.AbpCodeGenerator.Models
 {
@@ -13,6 +14,8 @@ namespace Yanusosu.AbpCodeGenerator.Models
         public string EntityKeyName { get; set; }
 
         public string Name { get; set; }
+
+        public string Names => Name.ToPlural();
 
         public string DisplayName { get; set; }
 
@@ -41,6 +44,11 @@ namespace Yanusosu.AbpCodeGenerator.Models
         /// 模块名称：命名空间第2段
         /// </summary>
         public string ModuleName { get; set; }
+
+        /// <summary>
+        /// 启用权限
+        /// </summary>
+        public bool EnableAuthorization { get; set; }
 
         public List<MetaColumnInfo> MetaColumnInfos { get; set; }
 

@@ -19,9 +19,15 @@ namespace @(Model.Namespace)
     {
         public @(Model.Name)AppService(IRepository<@(Model.Name), @(Model.EntityKeyName)> repository) : base(repository)
         {
-            CreatePermissionName = @(Model.Name)AppPermissions.Create_@(Model.Name);
-            UpdatePermissionName = @(Model.Name)AppPermissions.Update_@(Model.Name);
-            DeletePermissionName = @(Model.Name)AppPermissions.Delete_@(Model.Name);
+            @{
+                if(Model.EnableAuthorization){
+            @:GetAllPermissionName = @(Model.Name)AppPermissions.@(Model.Name);
+            @:GetPermissionName = @(Model.Name)AppPermissions.@(Model.Name);
+            @:CreatePermissionName = @(Model.Name)AppPermissions.Create_@(Model.Name);
+            @:UpdatePermissionName = @(Model.Name)AppPermissions.Update_@(Model.Name);
+            @:DeletePermissionName = @(Model.Name)AppPermissions.Delete_@(Model.Name);
+                }
+            }
         }
 
         protected override IQueryable<@(Model.Name)> CreateFilteredQuery(Paged@(Model.Name)ResultRequestDto input)

@@ -72,7 +72,7 @@ namespace WpfApp1
                     },
                     new MetaColumnInfo()
                     {
-                        StrDataType = "enum",
+                        StrDataType = "Sex",
                         Name="Sex",
                         DisplayName = "性别",
                         CamelCaseName="sex",
@@ -161,15 +161,13 @@ namespace WpfApp1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var generatorModuleMetaColumnInfos = _generatorModule.MetaColumnInfos;
-
             //var result = 
 
             var templateViewModels = TemplateViewModel.GetNormalViewModels(new SolutionModel()
             {
-                SelectedFilePath = @"E:\Code\work\家政公司\platform\aspnet-core\src\Yanusosu.Platform.Core\Schools\Students\Student.cs",
+                SelectedFilePath = @"E:\code\github\Yanusosu.Platform\aspnet-core\src\Yanusosu.Platform.Core\Schools\Students\Student.cs",
                 SelectFileName = "Student.cs"
-            });
+            },_generatorModule);
 
             foreach (var templateViewModel in templateViewModels)
             {

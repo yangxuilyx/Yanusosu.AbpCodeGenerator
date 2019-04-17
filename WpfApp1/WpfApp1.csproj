@@ -62,6 +62,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="SolutionModel.cs" />
+    <Compile Include="StringExtension.cs" />
     <Compile Include="TemplateViewModel.cs" />
     <Content Include="Templates\Application\Dto\CreateEntityDto.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -88,6 +89,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\Domain\EntityManager.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\EntityFrameworkCore\Configurations\EntityCfg.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Page Include="MainWindow.xaml">
@@ -128,6 +132,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Templates\Domain\ReadMe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

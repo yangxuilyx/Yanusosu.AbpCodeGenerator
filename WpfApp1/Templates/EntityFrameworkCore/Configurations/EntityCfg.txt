@@ -1,0 +1,36 @@
+/*
+* 文  件 名 :    @(Model.Name)Cfg.cs
+* 描      述 :    @(Model.DisplayName)数据库配置
+* 创建时间 :    @(@DateTime.Now.ToString())
+* ===============================================================================
+* Copyright © Yanusosu 2019 . All rights reserved.
+* ===============================================================================
+*/
+
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using @(Model.Namespace);
+
+namespace @(Model.SolutionNameSpace).EntityFrameworkCore.Configurations.@(Model.ModuleName).@(Model.Names)
+{
+    public class @(Model.Name)Cfg : IEntityTypeConfiguration<@(Model.Name)>
+    {
+        public void Configure(EntityTypeBuilder<@(Model.Name)> builder)
+        {
+            builder.ToTable("@(Model.Names)",@(Model.ConstName)Consts.SchemaName.Default);
+
+            @{
+                foreach(var item in Model.MetaColumnInfos){
+                    if(item.MaxLength.HasValue){
+            @:builder.Property(p => p.@(item.Name)).HasMaxLength(@(item.MaxLength));            
+                    }
+                    if(item.Required){
+            @:builder.Property(p => p.@(item.Name)).IsRequired();     
+            @:      
+                    }
+                }
+            }
+        }
+    }
+}
