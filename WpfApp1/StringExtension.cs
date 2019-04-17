@@ -7,6 +7,10 @@ namespace Yanusosu.AbpCodeGenerator.Extensions
     {
         private static Regex R = new Regex("[A-Z]");
 
+        public static string JoinStringArray(this List<string> strArray, string separator)
+        {
+            return string.Join(separator, strArray);
+        }
         public static List<string> ConvertLowerSplitArray(this string str)
         {
             List<string> list = new List<string>();

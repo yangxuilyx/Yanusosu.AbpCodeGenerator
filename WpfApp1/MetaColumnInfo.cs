@@ -11,7 +11,7 @@ namespace Yanusosu.AbpCodeGenerator.Models
 
         public string DisplayName { get; set; }
 
-        public object CamelCaseName { get; set; }
+        public string CamelCaseName { get; set; }
 
         public bool IsSimpleProperty { get; set; }
 

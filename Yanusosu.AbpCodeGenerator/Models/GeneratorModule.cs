@@ -69,9 +69,6 @@ namespace Yanusosu.AbpCodeGenerator.Models
             entityModel.CamelCaseName = entityModel.Name.ToCamelCase();
             entityModel.ModuleName = GetModuleName(entityModel.Namespace, entityModel.Name);
 
-            var convertLowerSplitArray = entityModel.Name.ConvertLowerSplitArray();
-            entityModel.SplitName = string.Join("-", convertLowerSplitArray);
-
             // 获取属性
             GetProperties(entityModel, firstNode);
 

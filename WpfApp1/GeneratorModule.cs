@@ -21,8 +21,6 @@ namespace Yanusosu.AbpCodeGenerator.Models
 
         public string CamelCaseName { get; set; }
 
-        public string SplitName { get; set; }
-
         public string Namespace { get; set; }
 
         /// <summary>
@@ -45,6 +43,16 @@ namespace Yanusosu.AbpCodeGenerator.Models
         /// </summary>
         public string ModuleName { get; set; }
 
+        #region  vue字段
+
+        public string ModuleSplitName => ModuleName.ConvertLowerSplitArray().JoinStringArray("-");
+
+        public string SplitName { get; set; }
+
+        public string TsEntityKeyName => GetTsEntityKeyName(EntityKeyName);
+
+        #endregion
+
         /// <summary>
         /// 启用权限
         /// </summary>
@@ -52,5 +60,26 @@ namespace Yanusosu.AbpCodeGenerator.Models
 
         public List<MetaColumnInfo> MetaColumnInfos { get; set; }
 
+        public static string GetTsEntityKeyName(string entityKeyName)
+        {
+            switch (entityKeyName)
+            {
+                case "int":
+                case "long":
+                case "float":
+                case "double":
+                case "decimal":
+                    return "number";
+
+                case "string":
+                    return "string";
+
+                case "bool":
+                    return "boolean";
+
+                default:
+                    return entityKeyName.ToCamelCase();
+            }
+        }
     }
 }
