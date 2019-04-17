@@ -102,6 +102,12 @@ namespace WpfApp1
                     SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\store\modules\"),
                     FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\store\modules\",$"{module.SplitName}.ts"),
                 },
+                new TemplateViewModel()
+                {
+                    TemplatePath = Path.Combine(basePath,@"Templates\vue\views\entities","entity.txt"),
+                    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleName}\{module.Names}"),
+                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleName}\{module.Names}",$"{module.SplitName}.vue"),
+                },
             };
         }
     }
