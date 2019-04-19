@@ -5,21 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="306" Margin="10,170,0,0" VerticalAlignment="Top" Width="563" Name="MetaGrid" AutoGenerateColumns="False">
+        Title="生成ABP代码(vue)" Height="450" Width="800">
+    <Grid Margin="0,0,2,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="247*"/>
+            <ColumnDefinition Width="543*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid HorizontalAlignment="Left" Height="291" Margin="10,118,0,0" VerticalAlignment="Top" Width="509" Name="MetaGrid" AutoGenerateColumns="False" CanUserAddRows="False" SelectionUnit="Cell"
+                  DataGridCell.GotFocus="MetaGrid_OnGotFocus"
+                  HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="2"
+                  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="名称" Width="80" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="显示名称" Width="80"  Binding="{Binding DisplayName}"/>
                 <DataGridTextColumn Header="类型" Width="50"  Binding="{Binding StrDataType}"/>
                 <DataGridTextColumn Header="最大长度" Width="60" Binding="{Binding MaxLength}"/>
-                <DataGridTextColumn Header="必填"  Width="40" Binding="{Binding Required}"/>
+                <DataGridCheckBoxColumn Header="必填"  Width="40" Binding="{Binding Required}"/>
                 <DataGridCheckBoxColumn Header="ListDto" Binding="{Binding IsDtoVisible}"/>
                 <DataGridCheckBoxColumn Header="CreateDto" Binding="{Binding IsCreateVisible}"/>
                 <DataGridCheckBoxColumn Header="UpdateDto" Binding="{Binding IsUpdateVisible}"/>
-                <DataGridComboBoxColumn Header="控件类型" x:Name="ControlTypeCombox" TextBinding="{Binding ControlType}"/>
+                <!--<DataGridComboBoxColumn Header="控件类型" x:Name="ControlTypeCombox" TextBinding="{Binding ControlType}"/>-->
             </DataGrid.Columns>
+
+            <DataGrid.Resources>
+                <!--设置行样式-->
+                <!--背景色必须先设置cellstyle因为cellstyle会覆盖rowstyle样式-->
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Style.Triggers>
+                        <!--隔行显示-->
+                        <Trigger Property="AlternationIndex" Value="0">
+                            <Setter Property="Background" Value="#e7e7e7"/>
+                        </Trigger>
+                        <Trigger Property="AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="AntiqueWhite"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="AliceBlue"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
         </DataGrid>
-        <Button Content="确定" HorizontalAlignment="Left" Margin="604,376,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="确定" HorizontalAlignment="Left" Margin="348.167,214,0,0" VerticalAlignment="Top" Width="116" Click="Button_Click" Height="59" Grid.Column="1"/>
+        <Grid HorizontalAlignment="Left" Height="103" Margin="10,10,-2,0" VerticalAlignment="Top" Width="782" Name="ModelGrid" Background="Beige" Grid.ColumnSpan="2">
+            <Label Content="模型名称" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="73,12,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
+            <Label HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Content="命名空间"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="73,57,0,0" TextWrapping="Wrap" Text="{Binding Namespace}" VerticalAlignment="Top" Width="313"/>
+            <Label Content="类型" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="266,12,0,0" TextWrapping="Wrap" Text="{Binding EntityKeyName}" VerticalAlignment="Top" Width="120"/>
+            <Label Content="显示名称" HorizontalAlignment="Left" Margin="408,12,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.223,0.708"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="482,14,0,0" TextWrapping="Wrap" Text="{Binding DisplayName}" VerticalAlignment="Top" Width="120"/>
+            <Label Content="启用权限" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="7.137,0.47" Margin="408,57,0,0"/>
+            <CheckBox Content="启用权限" HorizontalAlignment="Left" Margin="482,63,0,0" VerticalAlignment="Top" IsChecked="{Binding EnableAuthorization}"/>
+        </Grid>
+
     </Grid>
+
+
 </Window>
+
+    

@@ -41,19 +41,14 @@ namespace WpfApp1
         {
             InitializeComponent();
 
-            ControlTypeCombox.ItemsSource = _controlTypes;
+            //ControlTypeCombox.ItemsSource = _controlTypes;
             _generatorModule = new GeneratorModule()
             {
                 EntityKeyName = "long",
                 Name = "Student",
                 DisplayName = "学生",
-                CamelCaseName = "student",
-                SplitName = "student",
                 Namespace = "Yanusosu.Platform.Schools.Students",
-                SolutionNameSpace = "Yanusosu.Platform",
-                CompanyName = "Yanusosu",
-                ConstName = "Platform",
-                ModuleName = "Schools",
+                EnableAuthorization = true,
                 MetaColumnInfos = new List<MetaColumnInfo>()
                 {
                     new MetaColumnInfo()
@@ -68,7 +63,6 @@ namespace WpfApp1
                         IsCreateVisible=true,
                         IsUpdateVisible=true,
                         Required=true,
-                        MaxLength = 64
                     },
                     new MetaColumnInfo()
                     {
@@ -82,7 +76,6 @@ namespace WpfApp1
                         IsCreateVisible=true,
                         IsUpdateVisible=true,
                         Required=true,
-                        MaxLength = 64
                     },
                     new MetaColumnInfo()
                     {
@@ -96,7 +89,6 @@ namespace WpfApp1
                         IsCreateVisible=true,
                         IsUpdateVisible=true,
                         Required=true,
-                        MaxLength = 64
                     },
                     new MetaColumnInfo()
                     {
@@ -110,7 +102,6 @@ namespace WpfApp1
                         IsCreateVisible=true,
                         IsUpdateVisible=true,
                         Required=true,
-                        MaxLength = 64
                     },
                     new MetaColumnInfo()
                     {
@@ -124,7 +115,6 @@ namespace WpfApp1
                         IsCreateVisible=true,
                         IsUpdateVisible=true,
                         Required=true,
-                        MaxLength = 512
                     },
                     new MetaColumnInfo()
                     {
@@ -138,7 +128,6 @@ namespace WpfApp1
                         IsCreateVisible=false,
                         IsUpdateVisible=false,
                         Required=true,
-                        MaxLength = 64
                     },
                     new MetaColumnInfo()
                     {
@@ -156,6 +145,8 @@ namespace WpfApp1
                     },
                 }
             };
+
+            ModelGrid.DataContext = _generatorModule;
             this.MetaGrid.ItemsSource = _generatorModule.MetaColumnInfos;
         }
 
@@ -167,7 +158,7 @@ namespace WpfApp1
             {
                 SelectedFilePath = @"E:\code\github\Yanusosu.Platform\aspnet-core\src\Yanusosu.Platform.Core\Schools\Students\Student.cs",
                 SelectFileName = "Student.cs"
-            },_generatorModule);
+            }, _generatorModule);
 
             foreach (var templateViewModel in templateViewModels)
             {
@@ -196,6 +187,43 @@ namespace WpfApp1
         public static void GenerateCode(GeneratorModule generatorModule)
         {
 
+        }
+
+        private void MetaGrid_OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            // Lookup for the source to be DataGridCell
+            if (e.OriginalSource.GetType() == typeof(DataGridCell))
+            {
+                // Starts the Edit on the row;
+                DataGrid grd = (DataGrid)sender;
+                grd.BeginEdit(e);
+
+                Control control = GetFirstChildByType<Control>(e.OriginalSource as DataGridCell);
+                if (control != null)
+                {
+                    control.Focus();
+                }
+            }
+        }
+
+        private T GetFirstChildByType<T>(DependencyObject prop) where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(prop); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild((prop), i) as DependencyObject;
+                if (child == null)
+                    continue;
+
+                T castedProp = child as T;
+                if (castedProp != null)
+                    return castedProp;
+
+                castedProp = GetFirstChildByType<T>(child);
+
+                if (castedProp != null)
+                    return castedProp;
+            }
+            return null;
         }
     }
 }

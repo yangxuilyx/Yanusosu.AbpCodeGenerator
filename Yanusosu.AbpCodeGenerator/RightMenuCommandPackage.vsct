@@ -56,7 +56,7 @@
         <Parent guid="guidRightMenuCommandPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>生成代码(ABP)</ButtonText>
+          <ButtonText>生成ABP代码(vue)</ButtonText>
         </Strings>
       </Button>
     </Buttons>

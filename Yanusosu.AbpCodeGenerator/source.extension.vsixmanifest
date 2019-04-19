@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="Yanusosu.AbpCodeGenerator.baccefc4-64b3-4e2d-95fc-36383ea57807" Version="1.0" Language="en-US" Publisher="杨绪" />
         <DisplayName>Yanusosu.AbpCodeGenerator</DisplayName>
-        <Description>Empty VSIX Project.</Description>
+        <Description xml:space="preserve">ABP代码生成器(vue)</Description>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0, 16.0)" />
@@ -17,6 +17,6 @@
     </Prerequisites>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-      <Asset Type="Microsoft.VisualStudio.ToolboxControl" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-  </Assets>
+        <Asset Type="Microsoft.VisualStudio.ToolboxControl" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
 </PackageManifest>

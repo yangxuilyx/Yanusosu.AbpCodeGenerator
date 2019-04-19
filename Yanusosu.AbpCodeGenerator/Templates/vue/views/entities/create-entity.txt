@@ -1,0 +1,101 @@
+<template>
+  <div>
+    <Card dis-hover>
+      <Form
+        ref="@(Model.CamelCaseName)Form"
+        :label-width="80"
+        label-position="left"
+        :rules="@(Model.CamelCaseName)Rule"
+        :model="@(Model.CamelCaseName)"
+      >
+      @{
+          foreach(var item in Model.MetaColumnInfos){
+              if(item.StrDataType=="bool"){
+        @:<FormItem :label="L('@(item.DisplayName)')" prop="@(item.CamelCaseName)">
+            @:<i-switch v-model="@(Model.CamelCaseName).@(item.CamelCaseName)" />
+        @:</FormItem>
+              }
+              else{
+        @:<FormItem :label="L('@(item.DisplayName)')" prop="@(item.CamelCaseName)">
+            @:<Input
+            @:v-model="@(Model.CamelCaseName).@(item.CamelCaseName)"
+            if(item.MaxLength.HasValue){
+            @:maxlength="@(item.MaxLength)"
+            }
+            @:style="width: 300px">
+            @:</Input>
+        @:</FormItem>
+              }
+          }
+      }
+        <FormItem>
+          <Button @@click="save" type="primary">{{ L("OK") }}</Button>
+          <Button @@click="cancel" style="margin-left:8px">{{
+            L("Cancel")
+          }}</Button>
+        </FormItem>
+      </Form>
+    </Card>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
+import Util from "@@/lib/util";
+import AbpBase from "@@/lib/abpbase";
+import Ajax from '../../../lib/ajax';
+import @(Model.Name) from '../../../store/entities/@(Model.CamelCaseName)'
+
+@@Component
+export default class Create@(Model.Name) extends AbpBase {
+
+  @(Model.CamelCaseName)Rule = {
+   @{
+          foreach(var item in Model.MetaColumnInfos){
+          if(item.Required){
+      @:name: [{
+      @:required: true,
+      @:message: this.L("@(item.DisplayName)不能为空", undefined, this.L("@(item.DisplayName)")),
+      @:trigger: "blur"
+      @:}],
+          }
+      }
+   }
+  }
+
+  get @(Model.CamelCaseName)() {
+    return this.$store.state.@(Model.CamelCaseName).edit@(Model.Name);
+  }
+
+  cancel() {
+    this.$router.push({ name: '@(Model.CamelCaseName)' });
+  }
+  save() {
+    (this.$refs.@(Model.CamelCaseName)Form as any).validate(
+      async (valid: boolean) => {
+        if (valid) {
+          if (this.@(Model.CamelCaseName).id) {
+            await this.$store.dispatch({
+              type: '@(Model.CamelCaseName)/update', data: this.@(Model.CamelCaseName)
+            });
+          }
+          else {
+            await this.$store.dispatch({
+              type: '@(Model.CamelCaseName)/create', data: this.@(Model.CamelCaseName)
+            });
+          }
+          this.cancel();
+        }
+      });
+  }
+  mounted() {
+    //编辑
+    if (this.@(Model.CamelCaseName).id) {
+    }
+  }
+  
+  created() {
+  }
+}
+
+</script>

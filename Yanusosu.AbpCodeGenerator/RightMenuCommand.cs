@@ -15,6 +15,7 @@ using EnvDTE80;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
@@ -107,18 +108,20 @@ namespace Yanusosu.AbpCodeGenerator
 
             DTE2 ide = ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE2;
 
-            var ideActiveDocument = ide.ActiveDocument;
+            var selectedItem = ide.SelectedItems.Item(1);
 
-            var name = ideActiveDocument.Name;
-            if (ideActiveDocument?.Name == null || !name.EndsWith("cs"))
+            var document = selectedItem.ProjectItem.Document;
+
+            var name = document?.Name;
+            var fullName = document?.FullName;
+
+            if (document?.Name == null || !name.EndsWith("cs"))
             {
                 MessageBox.Show("请选择C#文件", "错误");
             }
             else
             {
-                var file = ideActiveDocument.FullName;
-
-                new MainWindow(new SolutionModel() { SelectFileName = name, SelectedFilePath = file }).ShowDialog();
+                new MainWindow(new SolutionModel() { SelectFileName = name, SelectedFilePath = fullName }).ShowDialog();
             }
         }
     }

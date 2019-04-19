@@ -7,7 +7,7 @@ namespace Yanusosu.AbpCodeGenerator.Extensions
     {
         private static Regex R = new Regex("[A-Z]");
 
-        public static string JoinStringArray(this List<string> strArray, string separator)
+        public static string JoinStringArray(this IEnumerable<string> strArray, string separator)
         {
             return string.Join(separator, strArray);
         }

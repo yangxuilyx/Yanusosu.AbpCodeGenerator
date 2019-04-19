@@ -1,0 +1,39 @@
+/*
+* 文  件 名 :    Create@(Model.Name)Dto.cs
+* 描      述 :    Create@(Model.DisplayName)Dto
+* 创建时间 :    @(@DateTime.Now.ToString())
+* ===============================================================================
+* Copyright © Yanusosu 2019 . All rights reserved.
+* ===============================================================================
+*/
+
+using System.ComponentModel.DataAnnotations;
+using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+
+namespace @(Model.Namespace).Dto
+{
+
+    [AutoMap(typeof(@(Model.Name)))]
+    public class Create@(Model.Name)Dto
+    {
+        @{
+            foreach(var item in Model.MetaColumnInfos){
+                if(item.IsCreateVisible){
+      @:/// <summary>
+      @:/// @(item.DisplayName)
+      @:/// </summary>
+      if(item.MaxLength.HasValue){
+      @:[MaxLength(@(item.MaxLength))]
+      }
+      if(item.Required){
+      @:[Required]
+      }
+      @:public @(item.StrDataType) @(item.Name) { get; set; }
+@: 
+ }
+            }
+        }
+     
+    }
+}

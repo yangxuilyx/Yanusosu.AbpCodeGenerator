@@ -19,35 +19,41 @@ namespace Yanusosu.AbpCodeGenerator.Models
 
         public string DisplayName { get; set; }
 
-        public string CamelCaseName { get; set; }
-
         public string Namespace { get; set; }
+
+        public string CamelCaseName => Name.ToCamelCase();
 
         /// <summary>
         /// 解决方案命名空间：命名空间第0第1段
         /// </summary>
-        public string SolutionNameSpace { get; set; }
+        public string SolutionNameSpace => Namespace.Split('.').Take(2).ToArray().JoinStringArray(".");
 
         /// <summary>
         /// 公司名称：命名空间第0段
         /// </summary>
-        public string CompanyName { get; set; }
+        public string CompanyName => Namespace.Split('.')[0];
 
         /// <summary>
         /// 项目名称：命名空间第1段
         /// </summary>
-        public string ConstName { get; set; }
+        public string ConstName => Namespace.Split('.')[1];
 
         /// <summary>
         /// 模块名称：命名空间第2段
         /// </summary>
-        public string ModuleName { get; set; }
+        public string ModuleName => Namespace.Split('.')[2];
 
         #region  vue字段
 
+        /// <summary>
+        /// 模块名称
+        /// </summary>
         public string ModuleSplitName => ModuleName.ConvertLowerSplitArray().JoinStringArray("-");
 
-        public string SplitName { get; set; }
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string SplitName => Name.ConvertLowerSplitArray().JoinStringArray("-");
 
         public string TsEntityKeyName => GetTsEntityKeyName(EntityKeyName);
 

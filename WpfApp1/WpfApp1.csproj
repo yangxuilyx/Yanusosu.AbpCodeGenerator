@@ -134,7 +134,7 @@
     <Content Include="Templates\Modules\Domain\EntityManager.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Modules\Domain\ReadMe.txt">
+    <Content Include="Templates\Modules\Domain\README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\Modules\EntityFrameworkCore\Configurations\EntityCfg.txt">
@@ -146,7 +146,13 @@
     <Content Include="Templates\vue\store\modules\entity.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Templates\vue\views\entities\create-entity.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\vue\views\entities\entity.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\vue\views\entities\README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
