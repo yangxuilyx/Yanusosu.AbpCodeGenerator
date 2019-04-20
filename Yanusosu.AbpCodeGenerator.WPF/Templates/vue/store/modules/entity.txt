@@ -13,7 +13,7 @@ import ListState from "./list-state";
 import Ajax from "../../lib/ajax";
 import PageResult from "@@/store/entities/page-result";
 import ListMutations from "./list-mutations";
-import @(Model.Name) from "../entities/@(Model.CamelCaseName)";
+import @(Model.Name) from "../entities/@(Model.SplitName)";
 
 interface @(Model.Name)State extends ListState<@(Model.Name)> {
   edit@(Model.Name): @(Model.Name);

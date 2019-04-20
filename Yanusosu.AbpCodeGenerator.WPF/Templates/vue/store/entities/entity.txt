@@ -8,7 +8,7 @@
 */
 
 import Entity from "./entity";
-export default class @(Model.CamelCaseName) extends Entity<@(Model.TsEntityKeyName)> {
+export default class @(Model.Name) extends Entity<@(Model.TsEntityKeyName)> {
     @{
         foreach(var item in Model.MetaColumnInfos){
             @:@(item.CamelCaseName): @(Yanusosu.AbpCodeGenerator.Models.GeneratorModule.GetTsEntityKeyName(item.StrDataType));

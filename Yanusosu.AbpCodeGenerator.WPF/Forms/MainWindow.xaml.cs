@@ -51,6 +51,7 @@ namespace Yanusosu.AbpCodeGenerator.Forms
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //var result = 
+
             var templateViewModels = TemplateViewModel.GetNormalViewModels(_solutionModel, _generatorModule);
 
             foreach (var templateViewModel in templateViewModels)
@@ -75,6 +76,8 @@ namespace Yanusosu.AbpCodeGenerator.Forms
             }
 
             MessageBox.Show("生成完成");
+
+            this.Close();
         }
 
         public static void GenerateCode(GeneratorModule generatorModule)

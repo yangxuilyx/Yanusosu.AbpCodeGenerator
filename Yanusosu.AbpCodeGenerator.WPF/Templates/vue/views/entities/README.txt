@@ -11,7 +11,7 @@ appRouters:
         meta: { title: "@(Model.DisplayName)", dontOpenNew: false },
         name: "@(Model.CamelCaseName)",
         component: () =>
-          import("../views/@(Model.ModuleName)/@(Model.SplitNames)/@(Model.SplitName).vue")
+          import("../views/@(Model.ModuleSplitName)/@(Model.SplitName)/@(Model.SplitName).vue")
       }
 
 ```
@@ -23,6 +23,16 @@ otherRouters:
       meta: { title: "创建@(Model.DisplayName)", dontOpenNew: true },
       name: "create@(Model.Name)",
       component: () =>
-        import("../views/@(Model.ModuleName)/@(Model.SplitNames)/create-@(Model.SplitName).vue")
+        import("../views/@(Model.ModuleSplitName)/@(Model.SplitName)/create-@(Model.SplitName).vue")
 }
 ```
+
+## store
+复制以下代码到store/index
+
+```
+import @(Model.CamelCaseName) from "./modules/@(Model.SplitName)";
+
+@(Model.CamelCaseName)
+
+  ```

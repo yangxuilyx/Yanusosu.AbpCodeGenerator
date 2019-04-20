@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yanusosu.AbpCodeGenerator", "Yanusosu.AbpCodeGenerator\Yanusosu.AbpCodeGenerator.csproj", "{2B064558-3F44-444E-BDD5-9AE7E37B7B66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{9C109B6B-A525-492E-B216-11BA145D5C9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yanusosu.AbpCodeGenerator.WPF", "Yanusosu.AbpCodeGenerator.WPF\Yanusosu.AbpCodeGenerator.WPF.csproj", "{69A962F4-A968-4DD5-B1F1-275DB5D83390}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{2B064558-3F44-444E-BDD5-9AE7E37B7B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B064558-3F44-444E-BDD5-9AE7E37B7B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B064558-3F44-444E-BDD5-9AE7E37B7B66}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C109B6B-A525-492E-B216-11BA145D5C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C109B6B-A525-492E-B216-11BA145D5C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C109B6B-A525-492E-B216-11BA145D5C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C109B6B-A525-492E-B216-11BA145D5C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A962F4-A968-4DD5-B1F1-275DB5D83390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A962F4-A968-4DD5-B1F1-275DB5D83390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A962F4-A968-4DD5-B1F1-275DB5D83390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A962F4-A968-4DD5-B1F1-275DB5D83390}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

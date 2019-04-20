@@ -106,19 +106,19 @@ namespace WpfApp1
                 {
                     TemplatePath = Path.Combine(basePath,@"Templates\vue\views\entities","entity.txt"),
                     SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}"),
-                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleName}\{module.SplitName}",$"{module.SplitName}.vue"),
+                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}",$"{module.SplitName}.vue"),
                 },
                 new TemplateViewModel()
                 {
                     TemplatePath = Path.Combine(basePath,@"Templates\vue\views\entities","create-entity.txt"),
-                    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleName}\{module.SplitName}"),
-                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleName}\{module.SplitName}",$"create-{module.SplitName}.vue"),
+                    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}"),
+                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}",$"create-{module.SplitName}.vue"),
                 },
                 new TemplateViewModel()
                 {
                     TemplatePath = Path.Combine(basePath,@"Templates\vue\views\entities","README.txt"),
-                    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleName}\{module.SplitName}"),
-                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleName}\{module.SplitName}",$"README.md"),
+                    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}"),
+                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}",$"README.md"),
                 },
             };
         }
