@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using Yanusosu.AbpCodeGenerator.Models;
 
-namespace WpfApp1
+namespace Yanusosu.AbpCodeGenerator.WPF.Models
 {
     public class TemplateViewModel
     {
@@ -17,7 +15,8 @@ namespace WpfApp1
 
         public static List<TemplateViewModel> GetNormalViewModels(SolutionModel model, GeneratorModule module)
         {
-            var basePath = Environment.CurrentDirectory;
+            var basePath = Path.GetDirectoryName(typeof(TemplateViewModel).Assembly.Location);
+
             return new List<TemplateViewModel>()
             {
                 new TemplateViewModel()

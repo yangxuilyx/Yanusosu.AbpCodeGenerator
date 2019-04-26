@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Yanusosu.AbpCodeGenerator.CodeAnalysis;
 using Yanusosu.AbpCodeGenerator.Extensions;
 
-namespace Yanusosu.AbpCodeGenerator.Models
+namespace Yanusosu.AbpCodeGenerator.WPF.Models
 {
     public class GeneratorModule
     {

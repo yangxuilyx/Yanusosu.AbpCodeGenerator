@@ -44,7 +44,7 @@ import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
 import Util from "@@/lib/util";
 import AbpBase from "@@/lib/abpbase";
 import Ajax from '../../../lib/ajax';
-import @(Model.Name) from '../../../store/entities/@(Model.CamelCaseName)'
+import @(Model.Name) from '../../../store/entities/@(Model.SplitName)'
 
 @@Component
 export default class Create@(Model.Name) extends AbpBase {

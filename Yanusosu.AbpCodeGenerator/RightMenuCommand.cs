@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -20,8 +21,6 @@ using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Yanusosu.AbpCodeGenerator.Forms;
-using Yanusosu.AbpCodeGenerator.Models;
 using Process = System.Diagnostics.Process;
 
 namespace Yanusosu.AbpCodeGenerator
@@ -122,9 +121,10 @@ namespace Yanusosu.AbpCodeGenerator
             }
             else
             {
-                //new MainWindow(new SolutionModel() { SelectFileName = name, SelectedFilePath = fullName }).ShowDialog();
-             
-                var path = Path.Combine(Environment.CurrentDirectory, "Yanusosu.AbpCodeGenerator.WPF.exe");
+
+                var directoryName = Path.GetDirectoryName(typeof(RightMenuCommand).Assembly.Location);
+
+                var path = Path.Combine(directoryName, "Yanusosu.AbpCodeGenerator.WPF.exe");
 
                 Process.Start(path, $"{fullName} {name}");
             }

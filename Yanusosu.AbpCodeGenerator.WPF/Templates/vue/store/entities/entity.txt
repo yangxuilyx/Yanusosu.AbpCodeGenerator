@@ -11,7 +11,7 @@ import Entity from "./entity";
 export default class @(Model.Name) extends Entity<@(Model.TsEntityKeyName)> {
     @{
         foreach(var item in Model.MetaColumnInfos){
-            @:@(item.CamelCaseName): @(Yanusosu.AbpCodeGenerator.Models.GeneratorModule.GetTsEntityKeyName(item.StrDataType));
+            @:@(item.CamelCaseName): @(Yanusosu.AbpCodeGenerator.WPF.Models.GeneratorModule.GetTsEntityKeyName(item.StrDataType));
         }
     }
 }

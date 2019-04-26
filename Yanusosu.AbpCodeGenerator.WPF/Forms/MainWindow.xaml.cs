@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using RazorEngine;
-using WpfApp1;
-using Yanusosu.AbpCodeGenerator.Models;
+using Yanusosu.AbpCodeGenerator.WPF.Models;
 
-namespace Yanusosu.AbpCodeGenerator.Forms
+namespace Yanusosu.AbpCodeGenerator.WPF.Forms
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -40,7 +40,15 @@ namespace Yanusosu.AbpCodeGenerator.Forms
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _generatorModule = GeneratorModule.GenerateModel(_solutionModel);
+            try
+            {
+                _generatorModule = GeneratorModule.GenerateModel(_solutionModel);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                throw;
+            }
 
             this.MetaGrid.ItemsSource = _generatorModule.MetaColumnInfos;
 
@@ -52,27 +60,39 @@ namespace Yanusosu.AbpCodeGenerator.Forms
         {
             //var result = 
 
-            var templateViewModels = TemplateViewModel.GetNormalViewModels(_solutionModel, _generatorModule);
-
-            foreach (var templateViewModel in templateViewModels)
+            try
             {
-                var template = File.ReadAllText(templateViewModel.TemplatePath, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+                var templateViewModels = TemplateViewModel.GetNormalViewModels(_solutionModel, _generatorModule);
 
-                templateViewModel.GenerateCode = Razor.Parse(template, _generatorModule);
+                foreach (var templateViewModel in templateViewModels)
+                {
+                    var template = File.ReadAllText(templateViewModel.TemplatePath,
+                        new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+
+                    templateViewModel.GenerateCode = Razor.Parse(template, _generatorModule);
+                }
+
+                foreach (var templateViewModel in templateViewModels)
+                {
+                    if (!Directory.Exists(templateViewModel.SavePath))
+                    {
+                        Directory.CreateDirectory(templateViewModel.SavePath);
+                    }
+
+                    using (FileStream fileStream =
+                        new FileStream(templateViewModel.FilePath, FileMode.Create, FileAccess.Write))
+                    {
+                        byte[] bytes =
+                            new UTF8Encoding(encoderShouldEmitUTF8Identifier: false).GetBytes(templateViewModel
+                                .GenerateCode);
+                        fileStream.Write(bytes, 0, bytes.Length);
+                    }
+                }
             }
-
-            foreach (var templateViewModel in templateViewModels)
+            catch (Exception ex)
             {
-                if (!Directory.Exists(templateViewModel.SavePath))
-                {
-                    Directory.CreateDirectory(templateViewModel.SavePath);
-                }
-
-                using (FileStream fileStream = new FileStream(templateViewModel.FilePath, FileMode.Create, FileAccess.Write))
-                {
-                    byte[] bytes = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false).GetBytes(templateViewModel.GenerateCode);
-                    fileStream.Write(bytes, 0, bytes.Length);
-                }
+                MessageBox.Show(ex.Message);
+                throw;
             }
 
             MessageBox.Show("生成完成");

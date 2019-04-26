@@ -1,7 +1,4 @@
-﻿using System.Net.Mime;
-using System.Windows.Controls;
-
-namespace Yanusosu.AbpCodeGenerator.Models
+﻿namespace Yanusosu.AbpCodeGenerator.WPF.Models
 {
     public enum MetaColumnControlType
     {

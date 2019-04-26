@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
-namespace Yanusosu.AbpCodeGenerator.Models
+namespace Yanusosu.AbpCodeGenerator.WPF.Models
 {
     public class MetaColumnInfo
     {

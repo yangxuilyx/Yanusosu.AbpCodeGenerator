@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Yanusosu.AbpCodeGenerator.Forms;
-using Yanusosu.AbpCodeGenerator.Models;
+using Yanusosu.AbpCodeGenerator.Extensions;
+using Yanusosu.AbpCodeGenerator.WPF.Forms;
+using Yanusosu.AbpCodeGenerator.WPF.Models;
 
 namespace Yanusosu.AbpCodeGenerator.WPF
 {
@@ -14,18 +15,17 @@ namespace Yanusosu.AbpCodeGenerator.WPF
         [STAThread]
         public static void Main(string[] args)
         {
-            Console.WriteLine(args);
             if (args.Length != 2)
             {
                 MessageBox.Show("启动参数错误");
                 return;
             }
-            new MainWindow(new SolutionModel()
-            {
-                SelectedFilePath =
-                   args[0],
-                SelectFileName = args[1]
-            }).ShowDialog();
+            new App().Run(new MainWindow(new SolutionModel()
+                {
+                    SelectedFilePath =
+                        args[0],
+                    SelectFileName = args[1]
+                }));
         }
     }
 }
