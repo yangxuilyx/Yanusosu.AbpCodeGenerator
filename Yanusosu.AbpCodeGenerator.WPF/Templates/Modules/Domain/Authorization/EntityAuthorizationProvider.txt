@@ -3,7 +3,7 @@
 * 描      述 :    @(Model.DisplayName)权限提供者
 * 创建时间 :    @(@DateTime.Now.ToString())
 * ===============================================================================
-* Copyright © Yanusosu 2019 . All rights reserved.
+* @ Yanusosu 2019. 
 * ===============================================================================
 */
 
@@ -25,8 +25,8 @@ namespace @(Model.Namespace).Authorization
 
             var @(Model.CamelCaseName) = module.CreateChildPermission(@(Model.Name)AppPermissions.@(Model.Name), L(@(Model.Name)AppPermissions.@(Model.Name)));
             @(Model.CamelCaseName).CreateChildPermission(@(Model.Name)AppPermissions.Create_@(Model.Name), L(@(Model.Name)AppPermissions.Create_@(Model.Name)));
-            @(Model.CamelCaseName).CreateChildPermission(@(Model.Name)AppPermissions.Create_@(Model.Name), L(@(Model.Name)AppPermissions.Create_@(Model.Name)));
-            @(Model.CamelCaseName).CreateChildPermission(@(Model.Name)AppPermissions.Create_@(Model.Name), L(@(Model.Name)AppPermissions.Create_@(Model.Name)));
+            @(Model.CamelCaseName).CreateChildPermission(@(Model.Name)AppPermissions.Update_@(Model.Name), L(@(Model.Name)AppPermissions.Update_@(Model.Name)));
+            @(Model.CamelCaseName).CreateChildPermission(@(Model.Name)AppPermissions.Delete_@(Model.Name), L(@(Model.Name)AppPermissions.Delete_@(Model.Name)));
         }
 
         private static ILocalizableString L(string name)
