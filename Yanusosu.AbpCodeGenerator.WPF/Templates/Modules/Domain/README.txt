@@ -1,7 +1,7 @@
 ## 权限配置
 在@(Model.ConstName)ApplicationModule的PreInitialize方法中添加如下代码：
 ```
-  Configuration.Authorization.Providers.Add<@(Model.Name)AppAuthorizationProvider>();
+  Configuration.Authorization.Providers.Add<@(Model.Name)AuthorizationProvider>();
 ```
 ## 本地化
 将以下内容剪切到CORE类库的Localization/SourceFiles/Platform-zh-Hans.xml

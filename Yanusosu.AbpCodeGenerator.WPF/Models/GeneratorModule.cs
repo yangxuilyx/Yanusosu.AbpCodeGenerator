@@ -111,6 +111,7 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
             entityModel.Namespace = syntaxTree.GetNameSpace().Result;
             entityModel.Name = solution.SelectFileName.Replace(".cs", "");
 
+            entityModel.EnableAuthorization = true;
             // 获取属性
             GetProperties(entityModel, firstNode);
 
