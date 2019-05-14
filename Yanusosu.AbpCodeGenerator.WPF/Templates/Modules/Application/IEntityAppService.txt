@@ -14,6 +14,9 @@ using @(Model.Namespace).Dto;
 
 namespace @(Model.Namespace)
 {
+    /// <summary>
+    /// @(Model.DisplayName)服务定义
+    /// </summary>
     public interface I@(Model.Name)AppService : IAsyncCrudAppService<@(Model.Name)Dto,@(Model.EntityKeyName),Paged@(Model.Name)ResultRequestDto,Create@(Model.Name)Dto,Update@(Model.Name)Dto>
     {
       

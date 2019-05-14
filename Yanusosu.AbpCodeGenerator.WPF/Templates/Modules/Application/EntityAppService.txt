@@ -15,6 +15,9 @@ using @(Model.Namespace).Dto;
 
 namespace @(Model.Namespace)
 {
+    /// <summary>
+    /// @(Model.DisplayName)服务实现
+    /// </summary>
     public class @(Model.Name)AppService : AsyncCrudAppService<@(Model.Name),@(Model.Name)Dto,@(Model.EntityKeyName),Paged@(Model.Name)ResultRequestDto,Create@(Model.Name)Dto,Update@(Model.Name)Dto>, I@(Model.Name)AppService
     {
         public @(Model.Name)AppService(IRepository<@(Model.Name), @(Model.EntityKeyName)> repository) : base(repository)

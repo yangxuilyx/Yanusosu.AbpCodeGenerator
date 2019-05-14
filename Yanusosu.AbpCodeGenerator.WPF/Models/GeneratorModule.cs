@@ -91,6 +91,16 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
                 case "decimal":
                     return "number";
 
+                case "int?":
+                case "long?":
+                case "float?":
+                case "double?":
+                case "decimal?":
+                    return "number | null";
+
+                case "datetime":
+                    return "Date";
+
                 case "string":
                     return "string";
 

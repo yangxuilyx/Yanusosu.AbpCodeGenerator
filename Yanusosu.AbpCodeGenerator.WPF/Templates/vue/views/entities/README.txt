@@ -8,6 +8,7 @@ appRouters:
 
  {
         path: "@(Model.CamelCaseName)",
+		permission: "Pages.@(Model.ModuleName).@(Model.Name)",
         meta: { title: "@(Model.DisplayName)", dontOpenNew: false },
         name: "@(Model.CamelCaseName)",
         component: () =>
