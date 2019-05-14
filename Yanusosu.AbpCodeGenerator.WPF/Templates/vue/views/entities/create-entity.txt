@@ -2,10 +2,10 @@
   <div>
     <Card dis-hover>
       <Form
-        ref="@(Model.CamelCaseName)Form"
+        ref="form"
+        :rules="rules"
         :label-width="80"
         label-position="left"
-        :rules="@(Model.CamelCaseName)Rule"
         :model="@(Model.CamelCaseName)"
       >
       @{
@@ -29,8 +29,8 @@
           }
       }
         <FormItem>
-          <Button @@click="save" :loading="isSaving" type="primary">{{ L("OK") }}</Button>
-          <Button @@click="cancel" style="margin-left:8px">{{
+          <Button @@click="save()" :loading="saving" type="primary">{{ L("OK") }}</Button>
+          <Button @@click="back()" style="margin-left:8px">{{
             L("Cancel")
           }}</Button>
         </FormItem>
@@ -42,14 +42,13 @@
 <script lang="ts">
 import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
 import Util from "@@/lib/util";
-import AbpBase from "@@/lib/abpbase";
-import Ajax from '../../../lib/ajax';
-import @(Model.Name) from '../../../store/entities/@(Model.SplitName)'
+import FormBase from '@@/lib/formbase';
+import Ajax from '@@/lib/ajax';
+import @(Model.Name) from '@@/store/entities/@(Model.SplitName)'
 
 @@Component
-export default class Create@(Model.Name) extends AbpBase {
- isSaving = false;
-  @(Model.CamelCaseName)Rule = {
+export default class Create@(Model.Name) extends FormBase {
+  rules = {
    @{
           foreach(var item in Model.MetaColumnInfos){
           if(item.Required){
@@ -67,33 +66,26 @@ export default class Create@(Model.Name) extends AbpBase {
     return this.$store.state.@(Model.CamelCaseName).edit@(Model.Name);
   }
 
-  cancel() {
-    this.$router.push({ name: '@(Model.CamelCaseName)' });
+   public validateFormExecute(resolve: any) {
+    (this.$refs.form as Form).validate(valid => {
+      resolve(valid);
+    })
   }
-  save() {
-    (this.$refs.@(Model.CamelCaseName)Form as any).validate(
-      async (valid: boolean) => {
-        if (valid) {
-          this.isSaving = true;
-         try {
-            if (this.serviceItem.id) {
-              await this.$store.dispatch({
-                type: 'serviceItem/update', data: this.serviceItem
+
+   public async submitExecute() {
+    if (this.@(Model.CamelCaseName).id) {
+        await this.$store.dispatch({
+                type: '@(Model.CamelCaseName)/update', data: this.@(Model.CamelCaseName)
               });
             }
-            else {
-              await this.$store.dispatch({
-                type: 'serviceItem/create', data: this.serviceItem
+    else {
+        await this.$store.dispatch({
+              type: '@(Model.CamelCaseName)/create', data: this.@(Model.CamelCaseName)
               });
-            }
-            this.cancel();
           }
-          finally {
-            this.isSaving = false;
-          }
-        }
-      });
+    this.back();
   }
+
   mounted() {
     //编辑
     if (this.@(Model.CamelCaseName).id) {

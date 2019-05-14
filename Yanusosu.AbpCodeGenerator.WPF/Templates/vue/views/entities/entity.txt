@@ -9,7 +9,7 @@
           </Row>
           <Row>
             <Button
-              @@click="create"
+              @@click="create()"
               v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Create')"
               icon="android-add"
               type="primary"
@@ -19,7 +19,7 @@
               icon="ios-search"
               type="primary"
               size="large"
-              @@click="getpage"
+              @@click="getpage()"
               class="toolbar-btn"
               >{{ L("Find") }}</Button>
           </Row>

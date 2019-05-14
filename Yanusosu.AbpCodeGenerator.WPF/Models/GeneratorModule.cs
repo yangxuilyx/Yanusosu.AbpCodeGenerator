@@ -34,17 +34,17 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
         /// <summary>
         /// 公司名称：命名空间第0段
         /// </summary>
-        public string CompanyName => Namespace.Split('.')[0];
+        public string CompanyName => GetNamespaceSpitOrDefault(0);
 
         /// <summary>
         /// 项目名称：命名空间第1段
         /// </summary>
-        public string ConstName => Namespace.Split('.')[1];
+        public string ConstName => GetNamespaceSpitOrDefault(1);
 
         /// <summary>
         /// 模块名称：命名空间第2段
         /// </summary>
-        public string ModuleName => Namespace.Split('.')[2];
+        public string ModuleName => GetNamespaceSpitOrDefault(2);
 
         #region  vue字段
 
@@ -68,6 +68,17 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
         public bool EnableAuthorization { get; set; }
 
         public List<MetaColumnInfo> MetaColumnInfos { get; set; }
+
+        private string GetNamespaceSpitOrDefault(int index)
+        {
+            var strings = Namespace.Split('.');
+            if (strings.Length > 0)
+            {
+                return strings[0];
+            }
+
+            return Namespace;
+        }
 
         public static string GetTsEntityKeyName(string entityKeyName)
         {
