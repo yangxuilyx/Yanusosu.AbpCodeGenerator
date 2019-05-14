@@ -29,7 +29,7 @@
           }
       }
         <FormItem>
-          <Button @@click="save" type="primary">{{ L("OK") }}</Button>
+          <Button @@click="save" :loading="isSaving" type="primary">{{ L("OK") }}</Button>
           <Button @@click="cancel" style="margin-left:8px">{{
             L("Cancel")
           }}</Button>
@@ -48,7 +48,7 @@ import @(Model.Name) from '../../../store/entities/@(Model.SplitName)'
 
 @@Component
 export default class Create@(Model.Name) extends AbpBase {
-
+ isSaving = false;
   @(Model.CamelCaseName)Rule = {
    @{
           foreach(var item in Model.MetaColumnInfos){
@@ -74,17 +74,23 @@ export default class Create@(Model.Name) extends AbpBase {
     (this.$refs.@(Model.CamelCaseName)Form as any).validate(
       async (valid: boolean) => {
         if (valid) {
-          if (this.@(Model.CamelCaseName).id) {
-            await this.$store.dispatch({
-              type: '@(Model.CamelCaseName)/update', data: this.@(Model.CamelCaseName)
-            });
+          this.isSaving = true;
+         try {
+            if (this.serviceItem.id) {
+              await this.$store.dispatch({
+                type: 'serviceItem/update', data: this.serviceItem
+              });
+            }
+            else {
+              await this.$store.dispatch({
+                type: 'serviceItem/create', data: this.serviceItem
+              });
+            }
+            this.cancel();
           }
-          else {
-            await this.$store.dispatch({
-              type: '@(Model.CamelCaseName)/create', data: this.@(Model.CamelCaseName)
-            });
+          finally {
+            this.isSaving = false;
           }
-          this.cancel();
         }
       });
   }
