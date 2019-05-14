@@ -72,9 +72,9 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
         private string GetNamespaceSpitOrDefault(int index)
         {
             var strings = Namespace.Split('.');
-            if (strings.Length > 0)
+            if (strings.Length > index)
             {
-                return strings[0];
+                return strings[index];
             }
 
             return Namespace;
