@@ -154,6 +154,7 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
                                                IsCollection = p.IsCollection(),
                                                AttributesList = p.AttributeLists.GetFilteredAttributeStringList(),
 
+                                               IsQueryVisible = false,
                                                IsCreateVisible = true,
                                                IsDtoVisible = true,
                                                IsUpdateVisible = true,

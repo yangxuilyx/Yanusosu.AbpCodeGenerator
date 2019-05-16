@@ -15,6 +15,25 @@ namespace @(Model.Namespace).Dto
 {
     public class Paged@(Model.Name)ResultRequestDto : PagedResultRequestDto, ISortedResultRequest, IShouldNormalize
     {
+        @{
+            foreach(var item in Model.MetaColumnInfos){
+                if(item.IsQueryVisible){
+                    if(item.StrDataType=="string" || item.StrDataType.Contains("?")){
+      @:/// <summary>
+      @:/// @(item.DisplayName)
+      @:/// </summary>
+      @:public @(item.StrDataType) @(item.Name) { get; set; }
+                    }else{
+      @:/// <summary>
+      @:/// @(item.DisplayName)
+      @:/// </summary>
+      @:public @(item.StrDataType)? @(item.Name) { get; set; }
+                    }
+     
+@: 
+ }
+            }
+        }
         public string Sorting { get; set; }
 
         public void Normalize()

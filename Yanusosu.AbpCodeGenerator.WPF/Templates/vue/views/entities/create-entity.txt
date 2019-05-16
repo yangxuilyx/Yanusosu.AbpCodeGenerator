@@ -44,7 +44,7 @@ import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
 import Util from "@@/lib/util";
 import FormBase from '@@/lib/formbase';
 import Ajax from '@@/lib/ajax';
-import { Form } from "@/types/iview/form";
+import { Form } from "@@/types/iview/form";
 
 import @(Model.Name) from '@@/store/entities/@(Model.SplitName)'
 

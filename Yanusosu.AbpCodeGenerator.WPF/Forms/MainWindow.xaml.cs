@@ -60,7 +60,7 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Forms
         {
             //var result = 
 
-            try
+            //try
             {
                 var templateViewModels = TemplateViewModel.GetNormalViewModels(_solutionModel, _generatorModule);
 
@@ -89,11 +89,11 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Forms
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                throw;
-            }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //    throw;
+            //}
 
             MessageBox.Show("生成完成");
 

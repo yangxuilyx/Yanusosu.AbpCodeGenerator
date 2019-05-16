@@ -22,6 +22,8 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
 
         public string ControlType { get; set; }
 
+        public bool IsQueryVisible { get; set; }
+
         public bool IsDtoVisible { get; set; }
 
         public bool IsCreateVisible { get; set; }

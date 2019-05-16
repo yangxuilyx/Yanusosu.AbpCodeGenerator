@@ -10,6 +10,9 @@
 using System.Linq;
 using Abp.Application.Services;
 using Abp.Domain.Repositories;
+using Abp.Extensions;
+using Abp.Linq.Extensions;
+
 using @(Model.Namespace).Authorization;
 using @(Model.Namespace).Dto;
 
@@ -18,6 +21,11 @@ namespace @(Model.Namespace)
     /// <summary>
     /// @(Model.DisplayName)服务实现
     /// </summary>
+     @{
+                if(Model.EnableAuthorization){
+    @:[AbpAuthorize(@(Model.Name)AppPermissions.@(Model.Name))]
+                }
+            }
     public class @(Model.Name)AppService : AsyncCrudAppService<@(Model.Name),@(Model.Name)Dto,@(Model.EntityKeyName),Paged@(Model.Name)ResultRequestDto,Create@(Model.Name)Dto,Update@(Model.Name)Dto>, I@(Model.Name)AppService
     {
         public @(Model.Name)AppService(IRepository<@(Model.Name), @(Model.EntityKeyName)> repository) : base(repository)
@@ -35,7 +43,24 @@ namespace @(Model.Namespace)
 
         protected override IQueryable<@(Model.Name)> CreateFilteredQuery(Paged@(Model.Name)ResultRequestDto input)
         {
-            return Repository.GetAll();
+            var query = Repository.GetAll();
+            // 自定义查询
+            @{
+            foreach(var item in Model.MetaColumnInfos){
+                if(item.IsQueryVisible){
+                    switch (item.StrDataType)
+                    {
+                        case "string":
+            @:query = query.WhereIf(!input.@(item.Name).IsNullOrEmpty(),p=>p.@(item.Name).Contains(input.@(item.Name)));
+                        break;
+                        default:
+            @:query = query.WhereIf(input.@(item.Name).HasValue(),p=>p.@(item.Name) == input.@(item.Name));
+                        break;
+                    }
+                }
+            }
+        }
+            return query;
         }
     }
 }

@@ -11,7 +11,7 @@
             <ColumnDefinition Width="247*"/>
             <ColumnDefinition Width="543*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid HorizontalAlignment="Left" Height="291" Margin="10,118,0,0" VerticalAlignment="Top" Width="509" Name="MetaGrid" AutoGenerateColumns="False" CanUserAddRows="False" SelectionUnit="Cell"
+        <DataGrid HorizontalAlignment="Left" Height="291" Margin="10,118,0,0" VerticalAlignment="Top" Width="580" Name="MetaGrid" AutoGenerateColumns="False" CanUserAddRows="False" SelectionUnit="Cell"
                   DataGridCell.GotFocus="MetaGrid_OnGotFocus"
                   HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="2"
                   >
@@ -21,6 +21,7 @@
                 <DataGridTextColumn Header="类型" Width="50"  Binding="{Binding StrDataType}"/>
                 <DataGridTextColumn Header="最大长度" Width="60" Binding="{Binding MaxLength}"/>
                 <DataGridCheckBoxColumn Header="必填"  Width="40" Binding="{Binding Required}"/>
+                <DataGridCheckBoxColumn Header="QueryDto" Binding="{Binding IsQueryVisible}"/>
                 <DataGridCheckBoxColumn Header="ListDto" Binding="{Binding IsDtoVisible}"/>
                 <DataGridCheckBoxColumn Header="CreateDto" Binding="{Binding IsCreateVisible}"/>
                 <DataGridCheckBoxColumn Header="UpdateDto" Binding="{Binding IsUpdateVisible}"/>
