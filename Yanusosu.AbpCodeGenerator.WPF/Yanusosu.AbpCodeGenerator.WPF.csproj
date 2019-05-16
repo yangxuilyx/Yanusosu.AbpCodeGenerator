@@ -386,12 +386,6 @@
     <Content Include="Templates\Modules\EntityFrameworkCore\Configurations\EntityCfg.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\vue\store\entities\entity.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\vue\store\modules\entity.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Templates\vue\views\entities\create-entity.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
