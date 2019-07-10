@@ -1,2 +1,2 @@
-import { @(Model.Name)Service } from "./service-proxies";
+import { @(Model.Name)Service } from "@@/api/service-proxies";
 export const @(Model.CamelCaseName)Service = new @(Model.Name)Service();

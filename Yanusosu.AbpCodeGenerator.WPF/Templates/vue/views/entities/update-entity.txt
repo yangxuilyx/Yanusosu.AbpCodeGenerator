@@ -5,10 +5,11 @@
         ref="form"
         :model="@(Model.CamelCaseName)"
         :rules="rules"
+        v-show="@(Model.CamelCaseName).id"
         label-width="80px"
       >
       @foreach(var item in Model.MetaColumnInfos){
-        if(item.IsCreateVisible){
+        if(item.IsUpdateVisible){
     @:<el-form-item
     @:  label="@(item.DisplayName)"
     @:  prop="@(item.CamelCaseName)"
@@ -34,18 +35,18 @@
 import { Component, Vue } from "vue-property-decorator";
 import { @(Model.CamelCaseName)Service } from "@@/api/@(Model.ModuleSplitName)/@(Model.SplitName)";
 import FormBase from "@@/lib/view-base/formbase";
-import { Create@(Model.Name)Dto } from "@@/api/service-proxies";
+import { Update@(Model.Name)Dto } from "@@/api/service-proxies";
 
 @@Component({
-  name: "Create@(Model.Name)",
+  name: "Update@(Model.Name)",
   components: {}
 })
-export default class Create@(Model.Name) extends FormBase {
-  @(Model.CamelCaseName): Create@(Model.Name)Dto = new Create@(Model.Name)Dto();
+export default class Update@(Model.Name) extends FormBase {
+  @(Model.CamelCaseName): Update@(Model.Name)Dto = new Update@(Model.Name)Dto();
 
   rules: object = {
       @foreach(var item in Model.MetaColumnInfos){
-        if(item.IsCreateVisible){
+        if(item.IsUpdateVisible){
       @:  @(item.CamelCaseName): [
           if(item.Required){
       @:    { required: true, message: "请输入@(item.DisplayName)", trigger: "blur" },  
@@ -59,10 +60,16 @@ export default class Create@(Model.Name) extends FormBase {
   };
 
   mounted() {
+    this.get@(Model.Name)(+this.$route.params["id"]);
+  }
+
+  async get@(Model.Name)(id: number) {
+    let @(Model.CamelCaseName) = await @(Model.CamelCaseName)Service.get(id);
+    this.@(Model.CamelCaseName) = @(Model.CamelCaseName);
   }
 
   async submitExecute(): Promise<void> {
-    await @(Model.CamelCaseName)Service.create(this.@(Model.CamelCaseName));
+    await @(Model.CamelCaseName)Service.update(this.@(Model.CamelCaseName));
   }
 }
 </script>

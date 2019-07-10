@@ -399,6 +399,9 @@
     <Content Include="Templates\vue\views\entities\README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Templates\vue\views\entities\update-entity.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="zh-Hans\Microsoft.Build.resources.dll" />
     <Content Include="zh-Hans\Microsoft.Build.Tasks.Core.resources.dll" />
     <Content Include="zh-Hans\Microsoft.Build.Utilities.Core.resources.dll" />

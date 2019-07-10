@@ -110,6 +110,12 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
                 },
                 new TemplateViewModel()
                 {
+                    TemplatePath = Path.Combine(basePath,@"Templates\vue\views\entities","update-entity.txt"),
+                    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}"),
+                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}",$"update-{module.SplitName}.vue"),
+                },
+                new TemplateViewModel()
+                {
                     TemplatePath = Path.Combine(basePath,@"Templates\vue\views\entities","README.txt"),
                     SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}"),
                     FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}",$"README.md"),
