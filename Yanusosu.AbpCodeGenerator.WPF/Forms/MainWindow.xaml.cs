@@ -59,7 +59,11 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Forms
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //var result = 
-
+            if (string.IsNullOrWhiteSpace(_generatorModule.DisplayName))
+            {
+                MessageBox.Show("显示名称为空，请重新输入");
+                return;
+            }
             //try
             {
                 var templateViewModels = TemplateViewModel.GetNormalViewModels(_solutionModel, _generatorModule);

@@ -23,7 +23,7 @@
             type="primary"
             :loading="saving"
             @@click="save()"
-          >立即添加</el-button>
+          >立即修改</el-button>
           <el-button @@click="back()">取消</el-button>
         </el-form-item>
       </el-form>
@@ -65,7 +65,7 @@ export default class Update@(Model.Name) extends FormBase {
 
   async get@(Model.Name)(id: number) {
     let @(Model.CamelCaseName) = await @(Model.CamelCaseName)Service.get(id);
-    this.@(Model.CamelCaseName) = @(Model.CamelCaseName);
+    this.@(Model.CamelCaseName) = <Update@(Model.Name)Dto>@(Model.CamelCaseName);
   }
 
   async submitExecute(): Promise<void> {

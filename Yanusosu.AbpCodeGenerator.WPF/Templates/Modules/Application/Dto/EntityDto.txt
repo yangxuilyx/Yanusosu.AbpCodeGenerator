@@ -7,13 +7,16 @@
 * ===============================================================================
 */
 
+using System;
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 
 namespace @(Model.Namespace).Dto
 {
-
+    /// <summary>
+    /// @(Model.DisplayName)Dto
+    /// </summary>
     [AutoMap(typeof(@(Model.Name)))]
     public class @(Model.Name)Dto : EntityDto<@(Model.EntityKeyName)>
     {

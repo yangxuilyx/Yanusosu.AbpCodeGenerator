@@ -20,8 +20,8 @@ namespace @(Model.Namespace).Authorization
         {
             var pages = context.GetPermissionOrNull(PermissionNames.Pages) ?? context.CreatePermission(PermissionNames.Pages, L("Pages"));
 
-            var module = pages.Children.FirstOrDefault(p => p.Name == "@(Model.ModuleName)")
-                                  ?? pages.CreateChildPermission("@(Model.ModuleName)", L("@(Model.ModuleName)"));
+            var module = pages.Children.FirstOrDefault(p => p.Name == "Pages.@(Model.ModuleName)")
+                                  ?? pages.CreateChildPermission("Pages.@(Model.ModuleName)", L("@(Model.ModuleName)"));
 
             var @(Model.CamelCaseName) = module.CreateChildPermission(@(Model.Name)AppPermissions.@(Model.Name), L(@(Model.Name)AppPermissions.@(Model.Name)));
             @(Model.CamelCaseName).CreateChildPermission(@(Model.Name)AppPermissions.Create_@(Model.Name), L(@(Model.Name)AppPermissions.Create_@(Model.Name)));

@@ -40,7 +40,7 @@
       style="width: 100%;"
     >
      @foreach(var item in Model.MetaColumnInfos){
-                if(item.IsQueryVisible){
+                if(item.IsDtoVisible){
       @:<el-table-column
       @:  label="@(item.DisplayName)"
       @:  prop="@(item.CamelCaseName)"
@@ -89,6 +89,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Util from "@@/lib/util";
+import Pagination from "@@/components/Pagination/index.vue";
 
 import {
     @(Model.Name)Dto,
@@ -108,9 +109,12 @@ class @(Model.Name)PagedRequest extends PagedRequestDto {
 
 @@Component({
   name: "@(Model.Name)",
+  components:{
+    Pagination
+  }
 })
 export default class @(Model.Name) extends PagedListBase<@(Model.Name)PagedRequest,@(Model.Name)Dto> {
-  this.request = new @(Model.Name)PagedRequest()
+  request = new @(Model.Name)PagedRequest()
    
   created() {
     this.refresh()
@@ -123,6 +127,7 @@ export default class @(Model.Name) extends PagedListBase<@(Model.Name)PagedReque
                 if(item.IsQueryVisible){
         @:this.request.@(item.CamelCaseName),
                 }}
+        this.request.sorting,
         this.request.skipCount,
         this.request.maxResultCount
       )

@@ -45,3 +45,27 @@
 
 ```
 
+模块路由：
+// @(Model.ModuleSplitName).ts
+
+```
+import { RouteConfig } from "vue-router";
+
+import Layout from "@@/layout/index.vue";
+
+const @(Model.ModuleSplitName)Router: RouteConfig = {
+  path: "/@(Model.ModuleSplitName)",
+  name: "@(Model.ModuleName)",
+  component: Layout,
+  meta: {
+    title: "@(Model.ModuleName)",
+    icon: "@(Model.ModuleSplitName)",
+    permission: "Pages.@(Model.ModuleName)"
+  },
+  children: []
+};
+
+export default @(Model.ModuleSplitName)Router;
+
+```
+

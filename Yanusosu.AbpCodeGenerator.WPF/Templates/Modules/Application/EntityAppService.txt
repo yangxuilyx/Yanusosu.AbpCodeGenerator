@@ -9,6 +9,7 @@
 
 using System.Linq;
 using Abp.Application.Services;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
@@ -19,7 +20,7 @@ using @(Model.Namespace).Dto;
 namespace @(Model.Namespace)
 {
     /// <summary>
-    /// @(Model.DisplayName)服务实现
+    /// @(Model.DisplayName)服务
     /// </summary>
      @{
                 if(Model.EnableAuthorization){
@@ -43,7 +44,8 @@ namespace @(Model.Namespace)
 
         protected override IQueryable<@(Model.Name)> CreateFilteredQuery(Paged@(Model.Name)ResultRequestDto input)
         {
-            var query = Repository.GetAll();
+            return base.CreateFilteredQuery(input)
+
             // 自定义查询
             @{
             foreach(var item in Model.MetaColumnInfos){
@@ -51,16 +53,16 @@ namespace @(Model.Namespace)
                     switch (item.StrDataType)
                     {
                         case "string":
-            @:query = query.WhereIf(!input.@(item.Name).IsNullOrEmpty(),p=>p.@(item.Name).Contains(input.@(item.Name)));
+            @:.WhereIf(!input.@(item.Name).IsNullOrEmpty(),p=>p.@(item.Name).Contains(input.@(item.Name)))
                         break;
                         default:
-            @:query = query.WhereIf(input.@(item.Name).HasValue(),p=>p.@(item.Name) == input.@(item.Name));
+            @:.WhereIf(input.@(item.Name).HasValue,p=>p.@(item.Name) == input.@(item.Name))
                         break;
                     }
                 }
             }
         }
-            return query;
+            ;
         }
     }
 }

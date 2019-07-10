@@ -1,19 +1,22 @@
 /*
 * 文  件 名 :    Update@(Model.Name)Dto.cs
-* 描      述 :    Update@(Model.DisplayName)Dto
+* 描      述 :    修改@(Model.DisplayName)Dto
 * 创建时间 :    @(@DateTime.Now.ToString())
 * ===============================================================================
 * @@ Yanusosu 2019. 
 * ===============================================================================
 */
 
+using System;
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 
 namespace @(Model.Namespace).Dto
 {
-
+    /// <summary>
+    /// 修改@(Model.DisplayName)Dto
+    /// </summary>
     [AutoMap(typeof(@(Model.Name)))]
     public class Update@(Model.Name)Dto : EntityDto<@(Model.EntityKeyName)>
     {

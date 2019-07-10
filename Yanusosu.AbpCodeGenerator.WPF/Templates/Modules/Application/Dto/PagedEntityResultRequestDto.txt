@@ -7,12 +7,16 @@
 * ===============================================================================
 */
 
+using System;
 using Abp.Application.Services.Dto;
 using Abp.Extensions;
 using Abp.Runtime.Validation;
 
 namespace @(Model.Namespace).Dto
 {
+    /// <summary>
+    /// @(Model.DisplayName)获取分页Input
+    /// </summary>
     public class Paged@(Model.Name)ResultRequestDto : PagedResultRequestDto, ISortedResultRequest, IShouldNormalize
     {
         @{
