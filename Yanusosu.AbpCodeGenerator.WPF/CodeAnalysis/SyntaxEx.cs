@@ -172,7 +172,7 @@ namespace Yanusosu.AbpCodeGenerator.CodeAnalysis
         {
             string text = string.Empty;
             string text2 = propertyNode.Modifiers.ToList().FirstOrDefault().LeadingTrivia.ToString();
-            if (!string.IsNullOrWhiteSpace(text))
+            if (!string.IsNullOrWhiteSpace(text2))
             {
                 string[] array = text2.Split(BR, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string text3 in array)

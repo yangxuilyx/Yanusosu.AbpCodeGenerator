@@ -1,190 +1,153 @@
+@using Yanusosu.AbpCodeGenerator.WPF.Models;
 <template>
-  <div>
-    <Card dis-hover>
-      <div class="page-body">
-        <Form ref="queryForm" :label-width="80" label-position="left" inline>
-          <Row :gutter="16">
-            @{
-            foreach(var item in Model.MetaColumnInfos){
-                   if(item.IsDtoVisible){
-            @:<Col span="6">
-              @:<FormItem label="@(item.DisplayName):" style="width:100%">
-              @:<Input v-model="request.@(item.CamelCaseName)" :placeholder="@(item.DisplayName)"></Input>
-              @:</FormItem>
-            @:</Col>
- }
-            }
-        }
-          </Row>
-          <Row>
-            <Button
-              @@click="create()"
-              v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Create')"
-              icon="android-add"
-              type="primary"
-              size="large"
-              >{{ L("Add") }}</Button>
-            <Button
-              icon="ios-search"
-              type="primary"
-              size="large"
-              @@click="getpage()"
-              class="toolbar-btn"
-              >{{ L("Find") }}</Button>
-          </Row>
-        </Form>
-        <div class="margin-top-10">
-          <Table
-            :loading="loading"
-            :columns="columns"
-            :no-data-text="L('NoDatas')"
-            border
-            :data="list"
-          ></Table>
-          <Page
-            show-sizer
-            show-total
-            class-name="fengpage"
-            :total="totalCount"
-            class="margin-top-10"
-            @@on-change="pageChange"
-            @@on-page-size-change="pagesizeChange"
-            :page-size="pageSize"
-            :current="currentPage"
-          ></Page>
-        </div>
-      </div>
-    </Card>
+    <div class="app-container">
+    <div class="filter-container">
+       @foreach(var item in Model.MetaColumnInfos){
+                if(item.IsQueryVisible){
+   @:<el-input
+        @:v-model="request.@(item.CamelCaseName)"
+        @:placeholder="@(item.DisplayName)"
+        @:style="width: 200px;"
+        @:class="filter-item"
+        @:clearable
+      @:/>
+                }}
+      <el-button
+        v-waves
+        class="filter-item"
+        type="primary"
+        icon="el-icon-search"
+        @@click="refresh()"
+      >
+        搜索
+      </el-button>
+      <el-button
+        v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Create')"
+        class="filter-item"
+        type="primary"
+        icon="el-icon-edit"
+        @@click="handleCreate"
+      >
+        添加
+      </el-button>
+    </div>
+    <el-table
+      v-loading="isTableLoading"
+      :data="list"
+      border
+      fit
+      highlight-current-row
+      style="width: 100%;"
+    >
+     @foreach(var item in Model.MetaColumnInfos){
+                if(item.IsQueryVisible){
+      @:<el-table-column
+      @:  label="@(item.DisplayName)"
+      @:  prop="@(item.CamelCaseName)"
+      @:  align="center"
+      @:>
+      @:</el-table-column>
+                }}
+     
+      <el-table-column
+        label="操作"
+        align="center"
+        width="240"
+        class-name="fixed-width"
+      >
+        <template slot-scope="{row}">
+          <el-button
+            v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Update')"
+            type="primary"
+            size="mini"
+            @@click="handleUpdate(row)"
+          >
+            编辑
+          </el-button>
+          <el-button
+            v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Delete')"
+            type="danger"
+            size="mini"
+            @@click="handleDelete(row)"
+          >
+            删除
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <pagination
+      :total="totalCount"
+      :page.sync="currentPage"
+      :limit.sync="pageSize"
+      @@pagination="refresh()"
+    />
+
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import Util from "@@/lib/util";
-import { PagedListBase, PagedRequestDto } from '@@/lib/view-base/paged-list-base'
+
 import {
-    @(Model.Name)Service,
     @(Model.Name)Dto,
-} from '@@/lib/service-proxies/service-proxies'
+} from '@@/api/service-proxies'
+import { @(Model.CamelCaseName)Service } from "@@/api/@(Model.CamelCaseName)Service";
+
+import PagedListBase, {
+  PagedRequestDto
+} from "@@/lib/view-base/paged-list-base";
 
 class @(Model.Name)PagedRequest extends PagedRequestDto {
+   @foreach(var item in Model.MetaColumnInfos){
+                if(item.IsQueryVisible){
+  @:@(item.CamelCaseName)!: @(GeneratorModule.GetTsEntityKeyName(item.StrDataType));
+                }}
 }
 
-@@Component
-export default class @(Model.Names) extends PagedListBase<@(Model.Name)PagedRequest,@(Model.Name)Dto> {
-    @(Model.CamelCaseName)Service: @(Model.Name)Service = new @(Model.Name)Service()
+@@Component({
+  name: "@(Model.Name)",
+})
+export default class @(Model.Name) extends PagedListBase<@(Model.Name)PagedRequest,@(Model.Name)Dto> {
+  this.request = new @(Model.Name)PagedRequest()
    
-    created() {
-        this.request = new @(Model.Name)PagedRequest()
-        this.refresh()
-    }
-
-    refresh(): void {
-        this.getDataPage(this.currentPage)
-    }
-
-    getpage(finishCallback: Function) {
-        this.@(Model.CamelCaseName)Service
-            .getAll(
-                 @{
-            foreach(var item in Model.MetaColumnInfos){
-                   if(item.IsDtoVisible){
-            @:this.request.@(item.CamelCaseName),
- }
-            }
-        }
-                this.request.skipCount,
-                this.request.maxResultCount
-            )
-            .then(result => {
-                this.list = result.items
-                this.showPaging(result)
-            })
-            .finally(() => {
-                finishCallback()
-            })
-    }
- 
-  columns = [
-    @{
-            foreach(var item in Model.MetaColumnInfos){
-                if(item.IsDtoVisible){
-    @:{
-        @:title: '@(item.DisplayName)',
-        @:key:'@(item.CamelCaseName)',
-        if(item.StrDataType=="bool"){
-        @:render: (h: any, params: any) => {
-            @:return h('span', params.row.@(item.CamelCaseName) == true ? '是' : '否')
-        @:}    
-        }
-    @:},
-                }
-            }
-        }
-    {
-      title: this.L("Actions"),
-      key: "Actions",
-      width: 150,
-      render: (h: any, params: any) => {
-        return h("div", [
-          h(
-            "Button",
-            {
-              props: {
-                type: "primary",
-                size: "small"
-              },
-              style: {
-                marginRight: "5px",
-                visibility: this.hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Update') ? '' : 'hidden',
-              },
-              on: {
-                click: () => {
-                  this.toCreate();
-                }
-              }
-            },
-            this.L("Edit")
-          ),
-          h(
-            "Button",
-            {
-              props: {
-                type: "error",
-                size: "small"
-              },
-              style: {
-                marginRight: "5px",
-                visibility: this.hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Delete') ? '' : 'hidden',
-              },
-              on: {
-                click: async () => {
-                  this.$Modal.confirm({
-                    title: this.L("Tips"),
-                    content: this.L("确定删除@(Model.DisplayName)？"),
-                    okText: this.L("Yes"),
-                    cancelText: this.L("No"),
-                    onOk: async () => {
-                    
-                      await this.refresh();
-                    }
-                  });
-                }
-              }
-            },
-            this.L("Delete")
-          )
-        ]);
-      }
-    }
-  ];
-
-  create() {
-    this.toCreate();
+  created() {
+    this.refresh()
   }
 
-  toCreate() {
-    this.$router.push({ name: 'create@(Model.Name)' });
+  getpage(finishCallback: Function): void {
+    @(Model.CamelCaseName)Service
+    .getAll(
+      @foreach(var item in Model.MetaColumnInfos){
+                if(item.IsQueryVisible){
+        @:this.request.@(item.CamelCaseName),
+                }}
+        this.request.skipCount,
+        this.request.maxResultCount
+      )
+      .then(result => {
+        this.list = result.items;
+        this.showPaging(result);
+      })
+      .finally(() => {
+        finishCallback();
+      });
+  }
+  handleCreate() {
+   this.$router.push({ path: "/@(Model.ModuleSplitName)/@(Model.SplitName)/create"});
+  }
+  handleUpdate(@(Model.CamelCaseName): @(Model.Name)Dto) {
+    this.$router.push({path: `/@(Model.ModuleSplitName)/@(Model.SplitName)/update/${@(Model.CamelCaseName).id}` });
+  }
+  handleDelete(@(Model.CamelCaseName): @(Model.Name)Dto) {
+    this.$confirm("确定删除@(Model.DisplayName)?")
+      .then(async () => {
+        await @(Model.CamelCaseName)Service.delete(@(Model.CamelCaseName).id);
+        this.$notify.success("删除成功");
+        this.refresh();
+      })
+      .catch(() => {});
   }
 }
 </script>

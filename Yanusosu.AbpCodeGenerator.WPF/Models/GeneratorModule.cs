@@ -99,7 +99,7 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
                     return "number | null";
 
                 case "datetime":
-                    return "Date";
+                    return "moment";
 
                 case "string":
                     return "string";

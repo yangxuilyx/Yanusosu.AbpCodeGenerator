@@ -15,6 +15,7 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
 
         public static List<TemplateViewModel> GetNormalViewModels(SolutionModel model, GeneratorModule module)
         {
+            
             var basePath = Path.GetDirectoryName(typeof(TemplateViewModel).Assembly.Location);
 
             return new List<TemplateViewModel>()
