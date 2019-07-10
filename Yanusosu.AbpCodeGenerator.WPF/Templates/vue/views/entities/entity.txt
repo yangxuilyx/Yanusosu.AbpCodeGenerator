@@ -93,7 +93,7 @@ import Util from "@@/lib/util";
 import {
     @(Model.Name)Dto,
 } from '@@/api/service-proxies'
-import { @(Model.CamelCaseName)Service } from "@@/api/@(Model.CamelCaseName)Service";
+import { @(Model.CamelCaseName)Service } from "@@/api/@(Model.ModuleSplitName)/@(Model.SplitName)";
 
 import PagedListBase, {
   PagedRequestDto

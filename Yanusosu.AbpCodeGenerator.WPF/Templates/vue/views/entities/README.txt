@@ -1,39 +1,47 @@
 ## 路由
 
 
-复制以下代码到模块路由children中
+复制以下代码到模块路由中
 
 ```
-appRouters:
-
- {
-        path: "@(Model.CamelCaseName)",
-		permission: "Pages.@(Model.ModuleName).@(Model.Name)",
-        meta: { title: "@(Model.DisplayName)", dontOpenNew: false },
-        name: "@(Model.CamelCaseName)",
-        component: () =>
-          import("../views/@(Model.ModuleSplitName)/@(Model.SplitName)/@(Model.SplitName).vue")
-      }
-
-```
-
-```
-otherRouters:
 {
-      path: "create-@(Model.SplitName)",
-      meta: { title: "创建@(Model.DisplayName)", dontOpenNew: true },
-      name: "create@(Model.Name)",
+      path: "@(Model.SplitName)",
+      name: "@(Model.Name)",
       component: () =>
-        import("../views/@(Model.ModuleSplitName)/@(Model.SplitName)/create-@(Model.SplitName).vue")
-}
+        import(
+          /* webpackChunkName: "@(Model.CamelCaseName)" */ "@@/views/@(Model.ModuleSplitName)/@(Model.SplitName)/index.vue"
+        ),
+      meta: {
+        title: "@(Model.DisplayName)管理",
+        permission: "Pages.@(Model.ModuleName).@(Model.Name)"
+      }
+    },
+    {
+      path: "@(Model.SplitName)/create",
+      name: "Create@(Model.Name)",
+      component: () =>
+        import(
+          /* webpackChunkName: "create-@(Model.SplitName)" */ "@@/views/@(Model.ModuleSplitName)/@(Model.SplitName)/create-@(Model.SplitName).vue"
+        ),
+      meta: {
+        title: "添加@(Model.DisplayName)",
+        hidden: true,
+        permission: "Pages.@(Model.ModuleName).@(Model.Name).Create"
+      }
+    },
+    {
+      path: "@(Model.SplitName)/update/:id",
+      name: "Update@(Model.Name)",
+      component: () =>
+        import(
+          /* webpackChunkName: "update-@(Model.SplitName)" */ "@@/views/@(Model.ModuleSplitName)/@(Model.SplitName)/update-@(Model.SplitName).vue"
+        ),
+      meta: {
+        title: "修改@(Model.DisplayName)",
+        hidden: true,
+        permission: "Pages.@(Model.ModuleName).@(Model.Name).Update"
+      }
+    },
+
 ```
 
-## store
-复制以下代码到store/index
-
-```
-import @(Model.CamelCaseName) from "./modules/@(Model.SplitName)";
-
-@(Model.CamelCaseName)
-
-  ```

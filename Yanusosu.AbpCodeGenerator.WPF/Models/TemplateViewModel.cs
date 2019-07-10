@@ -92,9 +92,15 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
                 // vue
                 new TemplateViewModel()
                 {
+                    TemplatePath = Path.Combine(basePath,@"Templates\vue\api","entity.txt"),
+                    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\api\{module.ModuleSplitName}"),
+                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\api\{module.ModuleSplitName}",$"{module.SplitName}.ts"),
+                },
+                new TemplateViewModel()
+                {
                     TemplatePath = Path.Combine(basePath,@"Templates\vue\views\entities","entity.txt"),
                     SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}"),
-                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}",$"{module.SplitName}.vue"),
+                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\vue\views\{module.ModuleSplitName}\{module.SplitName}",$"index.vue"),
                 },
                 new TemplateViewModel()
                 {
