@@ -22,7 +22,7 @@ namespace @(Model.Namespace).Dto
     {
         @{
             foreach(var item in Model.MetaColumnInfos){
-                if(item.IsDtoVisible){
+                if(item.IsDtoVisible || item.IsUpdateVisible){
       @:/// <summary>
       @:/// @(item.DisplayName)
       @:/// </summary>
