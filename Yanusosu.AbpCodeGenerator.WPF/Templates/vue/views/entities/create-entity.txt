@@ -15,10 +15,11 @@
     @:  >
     @:  <el-input v-model="@(Model.CamelCaseName).@(item.CamelCaseName)"></el-input>
     @:</el-form-item>
+	@:
       }}
 
-        <el-form-item>
-          <el-button
+     <el-form-item>
+        <el-button
             type="primary"
             :loading="saving"
             @@click="save()"
