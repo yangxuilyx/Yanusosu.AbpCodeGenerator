@@ -14,7 +14,7 @@
       meta: {
         title: "@(Model.DisplayName)管理",
 		  @if(Model.EnableAuthorization){
-        permission: "Pages.@(Model.ModuleName).@(Model.Name)"
+        @:permission: "Pages.@(Model.ModuleName).@(Model.Name)"
 		}
       }
     },
@@ -29,7 +29,7 @@
         title: "添加@(Model.DisplayName)",
         hidden: true,
 		  @if(Model.EnableAuthorization){
-        permission: "Pages.@(Model.ModuleName).@(Model.Name).Create"
+        @:permission: "Pages.@(Model.ModuleName).@(Model.Name).Create"
 		}
       }
     },
@@ -44,7 +44,7 @@
         title: "修改@(Model.DisplayName)",
         hidden: true,
 		  @if(Model.EnableAuthorization){
-        permission: "Pages.@(Model.ModuleName).@(Model.Name).Update"
+        @:permission: "Pages.@(Model.ModuleName).@(Model.Name).Update"
 		}
       }
     },
@@ -67,7 +67,7 @@ const @(Model.ModuleSplitName)Router: RouteConfig = {
     title: "@(Model.ModuleName)",
     icon: "@(Model.ModuleSplitName)",
 	  @if(Model.EnableAuthorization){
-    permission: "Pages.@(Model.ModuleName)"
+    @:permission: "Pages.@(Model.ModuleName)"
 	}
   },
   children: []
