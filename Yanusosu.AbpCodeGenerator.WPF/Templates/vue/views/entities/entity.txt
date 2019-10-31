@@ -36,7 +36,6 @@
     <el-table
       v-loading="isTableLoading"
       :data="list"
-      border
       fit
       highlight-current-row
       style="width: 100%;"
