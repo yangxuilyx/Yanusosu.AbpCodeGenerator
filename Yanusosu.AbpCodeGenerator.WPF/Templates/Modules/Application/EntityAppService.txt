@@ -14,7 +14,9 @@ using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 
+@if(Model.EnableAuthorization){
 using @(Model.Namespace).Authorization;
+}
 using @(Model.Namespace).Dto;
 
 namespace @(Model.Namespace)

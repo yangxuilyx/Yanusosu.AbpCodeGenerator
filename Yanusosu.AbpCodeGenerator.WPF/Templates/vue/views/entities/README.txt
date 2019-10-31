@@ -13,7 +13,7 @@
         ),
       meta: {
         title: "@(Model.DisplayName)管理",
-		  if(Model.EnableAuthorization){
+		  @if(Model.EnableAuthorization){
         permission: "Pages.@(Model.ModuleName).@(Model.Name)"
 		}
       }
@@ -28,7 +28,7 @@
       meta: {
         title: "添加@(Model.DisplayName)",
         hidden: true,
-		  if(Model.EnableAuthorization){
+		  @if(Model.EnableAuthorization){
         permission: "Pages.@(Model.ModuleName).@(Model.Name).Create"
 		}
       }
@@ -43,7 +43,7 @@
       meta: {
         title: "修改@(Model.DisplayName)",
         hidden: true,
-		  if(Model.EnableAuthorization){
+		  @if(Model.EnableAuthorization){
         permission: "Pages.@(Model.ModuleName).@(Model.Name).Update"
 		}
       }
@@ -66,7 +66,7 @@ const @(Model.ModuleSplitName)Router: RouteConfig = {
   meta: {
     title: "@(Model.ModuleName)",
     icon: "@(Model.ModuleSplitName)",
-	  if(Model.EnableAuthorization){
+	  @if(Model.EnableAuthorization){
     permission: "Pages.@(Model.ModuleName)"
 	}
   },

@@ -22,7 +22,7 @@
         搜索
       </el-button>
       <el-button
-	   if(Model.EnableAuthorization){
+	   @if(Model.EnableAuthorization){
         v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Create')"
 		}
         class="filter-item"
@@ -60,7 +60,7 @@
       >
         <template slot-scope="{row}">
           <el-button
-		    if(Model.EnableAuthorization){
+		    @if(Model.EnableAuthorization){
             v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Update')"
 			}
             type="primary"
@@ -70,7 +70,7 @@
             编辑
           </el-button>
           <el-button
-		    if(Model.EnableAuthorization){
+		    @if(Model.EnableAuthorization){
             v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Delete')"
 			}
             type="danger"
