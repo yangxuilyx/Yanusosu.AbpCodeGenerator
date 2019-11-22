@@ -13,7 +13,7 @@
     @:  label="@(item.DisplayName)"
     @:  prop="@(item.CamelCaseName)"
     @:  >
-    @:  <el-input v-model="@(Model.CamelCaseName).@(item.CamelCaseName)"></el-input>
+    @:  <el-input v-model="@(Model.CamelCaseName).@(item.CamelCaseName)" placeholder="@(item.DisplayName)"></el-input>
     @:</el-form-item>
 	@:
       }}
