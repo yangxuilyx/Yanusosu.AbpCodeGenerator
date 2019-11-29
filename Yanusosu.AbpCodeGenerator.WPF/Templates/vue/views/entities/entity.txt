@@ -67,6 +67,7 @@
           >
             编辑
           </el-link>
+		   <el-divider direction="vertical"></el-divider>
           <el-link
 		    @if(Model.EnableAuthorization){
             @: v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Delete')"
@@ -144,10 +145,13 @@ export default class @(Model.Name) extends PagedListBase<@(Model.Name)PagedReque
       });
   }
   handleCreate() {
-   this.$router.push({ path: "/@(Model.ModuleSplitName)/@(Model.SplitName)/create"});
+  this.$router.push({ name: "Create@(Model.Name)" });
   }
   handleUpdate(@(Model.CamelCaseName): @(Model.Name)Dto) {
-    this.$router.push({path: `/@(Model.ModuleSplitName)/@(Model.SplitName)/update/${@(Model.CamelCaseName).id}` });
+   this.$router.push({
+      name: "Update@(Model.Name)",
+      params: { id: @(Model.CamelCaseName).id.toString() }
+    });
   }
   handleDelete(@(Model.CamelCaseName): @(Model.Name)Dto) {
     this.$confirm("确定删除@(Model.DisplayName)?")
