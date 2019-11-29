@@ -58,26 +58,24 @@
         class-name="fixed-width"
       >
         <template slot-scope="{row}">
-          <el-button
+          <el-link
 		    @if(Model.EnableAuthorization){
             @: v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Update')"
 			}
             type="primary"
-            size="mini"
             @@click="handleUpdate(row)"
           >
             编辑
-          </el-button>
-          <el-button
+          </el-link>
+          <el-link
 		    @if(Model.EnableAuthorization){
             @: v-if="hasPermission('Pages.@(Model.ModuleName).@(Model.Name).Delete')"
 			}
             type="danger"
-            size="mini"
             @@click="handleDelete(row)"
           >
             删除
-          </el-button>
+          </el-link>
         </template>
       </el-table-column>
     </el-table>
