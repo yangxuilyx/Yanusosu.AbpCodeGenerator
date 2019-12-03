@@ -5,7 +5,7 @@
         ref="form"
         :model="@(Model.CamelCaseName)"
         :rules="rules"
-        v-show="@(Model.CamelCaseName).id"
+        v-if="@(Model.CamelCaseName).id"
         label-width="80px"
       >
       @foreach(var item in Model.MetaColumnInfos){
