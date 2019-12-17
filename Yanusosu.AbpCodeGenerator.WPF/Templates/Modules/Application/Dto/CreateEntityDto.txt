@@ -30,7 +30,7 @@ namespace @(Model.Namespace).Dto
       @:[MaxLength(@(item.MaxLength))]
       }
       if(item.Required){
-      @:[Required]
+      @:[Required(ErrorMessage = "@(item.DisplayName)不能为空")]
       }
       @:public @(item.StrDataType) @(item.Name) { get; set; }
 @: 

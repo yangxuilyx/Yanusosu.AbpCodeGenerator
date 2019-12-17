@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Yanusosu.AbpCodeGenerator.baccefc4-64b3-4e2d-95fc-36383ea57807" Version="1.0.1" Language="zh-Hans" Publisher="Yanusosu" />
+        <Identity Id="Yanusosu.AbpCodeGenerator.baccefc4-64b3-4e2d-95fc-36383ea57807" Version="1.0.2" Language="zh-Hans" Publisher="Yanusosu" />
         <DisplayName>Yanusosu.AbpCodeGenerator</DisplayName>
         <Description xml:space="preserve">ABP代码生成器(vue)</Description>
     </Metadata>
