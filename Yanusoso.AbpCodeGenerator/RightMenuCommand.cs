@@ -1,29 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using EnvDTE;
-using EnvDTE80;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.LanguageServices;
-using Microsoft.VisualStudio.PlatformUI;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Process = System.Diagnostics.Process;
+using Task = System.Threading.Tasks.Task;
 
-namespace Yanusosu.AbpCodeGenerator
+namespace Yanusoso.AbpCodeGenerator
 {
     /// <summary>
     /// Command handler
@@ -38,7 +24,7 @@ namespace Yanusosu.AbpCodeGenerator
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
-        public static readonly Guid CommandSet = new Guid("2859eb6a-f223-488b-a114-4d5194f9d931");
+        public static readonly Guid CommandSet = new Guid("aed55fad-e61a-47dd-8dcf-acb6873b1ae0");
 
         /// <summary>
         /// VS Package that provides this command, not null.
@@ -85,13 +71,13 @@ namespace Yanusosu.AbpCodeGenerator
         /// Initializes the singleton instance of the command.
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        public static async System.Threading.Tasks.Task InitializeAsync(AsyncPackage package)
+        public static async Task InitializeAsync(AsyncPackage package)
         {
             // Switch to the main thread - the call to AddCommand in RightMenuCommand's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
-            OleMenuCommandService commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
+            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new RightMenuCommand(package, commandService);
         }
 
@@ -106,18 +92,23 @@ namespace Yanusosu.AbpCodeGenerator
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            DTE2 ide = ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE2;
+            EnvDTE.DTE dte = (EnvDTE.DTE)Package.GetGlobalService(typeof(EnvDTE.DTE));
 
-            var selectedItem = ide.SelectedItems.Item(1);
+            var selectedItem = dte.SelectedItems.Item(1);
 
-            var document = selectedItem.ProjectItem.Document;
+            var fileName = selectedItem.ProjectItem.get_FileNames(0);
+            var projectItemName = selectedItem.ProjectItem.Name;
 
-            var name = document?.Name;
-            var fullName = document?.FullName;
 
-            if (document?.Name == null || !name.EndsWith("cs"))
+            if (!fileName.EndsWith("cs"))
             {
-                MessageBox.Show("请选择C#文件", "错误");
+                VsShellUtilities.ShowMessageBox(
+                    this.package,
+                    "请选择C#文件",
+                    "文件选择错误",
+                    OLEMSGICON.OLEMSGICON_INFO,
+                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
             }
             else
             {
@@ -126,7 +117,7 @@ namespace Yanusosu.AbpCodeGenerator
 
                 var path = Path.Combine(directoryName, "Yanusosu.AbpCodeGenerator.WPF.exe");
 
-                Process.Start(path, $"{fullName} {name}");
+                Process.Start(path, $"{fileName} {projectItemName}");
             }
         }
     }

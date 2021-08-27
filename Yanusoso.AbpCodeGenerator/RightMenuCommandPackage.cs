@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.OLE.Interop;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.Win32;
+using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -6,14 +11,9 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.Win32;
 using Task = System.Threading.Tasks.Task;
 
-namespace Yanusosu.AbpCodeGenerator
+namespace Yanusoso.AbpCodeGenerator
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -33,7 +33,6 @@ namespace Yanusosu.AbpCodeGenerator
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RightMenuCommandPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
@@ -42,7 +41,7 @@ namespace Yanusosu.AbpCodeGenerator
         /// <summary>
         /// RightMenuCommandPackage GUID string.
         /// </summary>
-        public const string PackageGuidString = "c817b1b2-2246-450a-ac40-2f5c49bc7b55";
+        public const string PackageGuidString = "88ee459f-cea0-4e77-9fa6-ff686945b556";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RightMenuCommandPackage"/> class.

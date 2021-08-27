@@ -37,7 +37,7 @@
          must be a menu. -->
     <Groups>
       <Group guid="guidRightMenuCommandPackageCmdSet" id="MyMenuGroup" priority="0x0600">
-        <Parent guid="guidCodeWindowRightClickCmdSet" id="CodeWindowRightClickMenu"/>
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
       </Group>
     </Groups>
 
@@ -56,7 +56,7 @@
         <Parent guid="guidRightMenuCommandPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>生成ABP代码(vue)</ButtonText>
+          <ButtonText>生成Abp代码</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -74,19 +74,15 @@
 
   <Symbols>
     <!-- This is the package guid. -->
-    <GuidSymbol name="guidRightMenuCommandPackage" value="{c817b1b2-2246-450a-ac40-2f5c49bc7b55}" />
-
-    <GuidSymbol name="guidCodeWindowRightClickCmdSet" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
-      <IDSymbol name="CodeWindowRightClickMenu" value="1072" />
-    </GuidSymbol>
+    <GuidSymbol name="guidRightMenuCommandPackage" value="{88ee459f-cea0-4e77-9fa6-ff686945b556}" />
 
     <!-- This is the guid used to group the menu commands together -->
-    <GuidSymbol name="guidRightMenuCommandPackageCmdSet" value="{2859eb6a-f223-488b-a114-4d5194f9d931}">
+    <GuidSymbol name="guidRightMenuCommandPackageCmdSet" value="{aed55fad-e61a-47dd-8dcf-acb6873b1ae0}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="RightMenuCommandId" value="0x0100" />
     </GuidSymbol>
 
-    <GuidSymbol name="guidImages" value="{2a973750-18ed-468e-80cf-f7a3fba9792f}" >
+    <GuidSymbol name="guidImages" value="{3dff7e5e-d246-4cbc-b55a-e43a320b38bb}" >
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />
