@@ -1,23 +1,13 @@
-/*
-* 文  件 名 :    @(Model.Name)AppService.cs
-* 描      述 :    @(Model.DisplayName)服务实现
-* 创建时间 :    @(@DateTime.Now.ToString())
-* ===============================================================================
-* @@ Yanusosu 2019. 
-* ===============================================================================
-*/
-
+using System;
 using System.Linq;
-using Abp.Application.Services;
-using Abp.Authorization;
-using Abp.Domain.Repositories;
-using Abp.Extensions;
-using Abp.Linq.Extensions;
-
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
    @if(Model.EnableAuthorization){
-@: using @(Model.Namespace).Authorization;
+@: using @(Model.Namespace).Permissions;
 }
-using @(Model.Namespace).Dto;
+using @(Model.Namespace).Dtos;
 
 namespace @(Model.Namespace)
 {
@@ -26,28 +16,29 @@ namespace @(Model.Namespace)
     /// </summary>
      @{
                 if(Model.EnableAuthorization){
-    @:[AbpAuthorize(@(Model.Name)AppPermissions.@(Model.Name))]
+    @:[Authorize(@(Model.Name)AppPermissions.@(Model.Name))]
                 }
             }
-    public class @(Model.Name)AppService : AsyncCrudAppService<@(Model.Name),@(Model.Name)Dto,@(Model.EntityKeyName),Paged@(Model.Name)ResultRequestDto,Create@(Model.Name)Dto,Update@(Model.Name)Dto>, I@(Model.Name)AppService
+    public class @(Model.Name)AppService : CrudAppService<@(Model.Name),@(Model.Name)Dto,@(Model.EntityKeyName),Paged@(Model.Name)Input,Create@(Model.Name)Dto,Update@(Model.Name)Dto>, I@(Model.Name)AppService
     {
         public @(Model.Name)AppService(IRepository<@(Model.Name), @(Model.EntityKeyName)> repository) : base(repository)
         {
             @{
                 if(Model.EnableAuthorization){
-            @:GetAllPermissionName = @(Model.Name)AppPermissions.@(Model.Name);
-            @:GetPermissionName = @(Model.Name)AppPermissions.@(Model.Name);
-            @:CreatePermissionName = @(Model.Name)AppPermissions.Create_@(Model.Name);
-            @:UpdatePermissionName = @(Model.Name)AppPermissions.Update_@(Model.Name);
-            @:DeletePermissionName = @(Model.Name)AppPermissions.Delete_@(Model.Name);
+            @:GetListPolicyName = @(Model.Name)Permissions.@(Model.Name);
+            @:GetPolicyName = @(Model.Name)Permissions.@(Model.Name);
+            @:CreatePolicyName = @(Model.Name)Permissions.Create;
+            @:UpdatePolicyName = @(Model.Name)Permissions.Update;
+            @:DeletePolicyName = @(Model.Name)Permissions.Delete;
                 }
             }
         }
 
-        protected override IQueryable<@(Model.Name)> CreateFilteredQuery(Paged@(Model.Name)ResultRequestDto input)
+        protected override async Task<IQueryable<@(Model.Name)>> CreateFilteredQueryAsync(Paged@(Model.Name)Input input)
         {
-            return base.CreateFilteredQuery(input)
+            var query = await base.CreateFilteredQueryAsync(input);
 
+            return query
             // 自定义查询
             @{
             foreach(var item in Model.MetaColumnInfos){

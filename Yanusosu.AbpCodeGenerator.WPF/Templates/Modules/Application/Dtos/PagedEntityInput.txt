@@ -1,0 +1,32 @@
+using System;
+using Volo.Abp.Application.Dtos;
+
+namespace @(Model.Namespace).Dtos
+{
+    /// <summary>
+    /// @(Model.DisplayName)获取分页Input
+    /// </summary>
+    public class Paged@(Model.Name)Input : PagedResultRequestDto, ISortedResultRequest
+    {
+        @{
+            foreach(var item in Model.MetaColumnInfos){
+                if(item.IsQueryVisible){
+                    if(item.StrDataType=="string" || item.StrDataType.Contains("?")){
+      @:/// <summary>
+      @:/// @(item.DisplayName)
+      @:/// </summary>
+      @:public @(item.StrDataType) @(item.Name) { get; set; }
+                    }else{
+      @:/// <summary>
+      @:/// @(item.DisplayName)
+      @:/// </summary>
+      @:public @(item.StrDataType)? @(item.Name) { get; set; }
+                    }
+     
+@: 
+ }
+            }
+        }
+        public string Sorting { get; set; } = "Id DESC"
+    }
+}

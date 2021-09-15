@@ -354,16 +354,16 @@
     <Content Include="System.Xml.XPath.XDocument.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Modules\Application\Dto\CreateEntityDto.txt">
+    <Content Include="Templates\Modules\Application\Dtos\CreateEntityDto.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Modules\Application\Dto\EntityDto.txt">
+    <Content Include="Templates\Modules\Application\Dtos\EntityDto.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Modules\Application\Dto\PagedEntityResultRequestDto.txt">
+    <Content Include="Templates\Modules\Application\Dtos\PagedEntityInput.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Modules\Application\Dto\UpdateEntityDto.txt">
+    <Content Include="Templates\Modules\Application\Dtos\UpdateEntityDto.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\Modules\Application\EntityAppService.txt">

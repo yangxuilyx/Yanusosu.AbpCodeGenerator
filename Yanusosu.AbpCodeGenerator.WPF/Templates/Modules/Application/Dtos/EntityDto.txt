@@ -1,0 +1,24 @@
+using System;
+using Volo.Abp.Application.Dtos;
+
+namespace @(Model.Namespace).Dtos
+{
+    /// <summary>
+    /// @(Model.DisplayName)Dto
+    /// </summary>
+    public class @(Model.Name)Dto : EntityDto<@(Model.EntityKeyName)>
+    {
+        @{
+            foreach(var item in Model.MetaColumnInfos){
+                if(item.IsDtoVisible || item.IsUpdateVisible){
+      @:/// <summary>
+      @:/// @(item.DisplayName)
+      @:/// </summary>
+      @:public @(item.StrDataType) @(item.Name) { get; set; }
+@: 
+ }
+            }
+        }
+     
+    }
+}
