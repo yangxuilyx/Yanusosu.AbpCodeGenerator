@@ -1,52 +1,21 @@
+## api
+
+export const @(Model.CamelCaseName)Service = new @(Model.Name)Service();
+
 ## 路由
-
-
 复制以下代码到模块路由中
 
 ```
 {
-      path: "@(Model.SplitName)",
-      name: "@(Model.Name)",
-      component: () =>
-        import(
-          /* webpackChunkName: "@(Model.CamelCaseName)" */ "@@/views/@(Model.ModuleSplitName)/@(Model.SplitName)/index.vue"
-        ),
+      path: '@(Model.SplitName)',
+      name: '@(Model.Name)',
+      component: () => import('/@@/views/@(Model.ModuleSplitName)/@(Model.SplitName)/index.vue'),
       meta: {
-        title: "@(Model.DisplayName)管理",
-		  @if(Model.EnableAuthorization){
-        @:permission: "Pages.@(Model.ModuleName).@(Model.Name)"
-		}
-      }
-    },
-    {
-      path: "@(Model.SplitName)/create",
-      name: "Create@(Model.Name)",
-      component: () =>
-        import(
-          /* webpackChunkName: "create-@(Model.SplitName)" */ "@@/views/@(Model.ModuleSplitName)/@(Model.SplitName)/create-@(Model.SplitName).vue"
-        ),
-      meta: {
-        title: "添加@(Model.DisplayName)",
-        hidden: true,
-		  @if(Model.EnableAuthorization){
-        @:permission: "Pages.@(Model.ModuleName).@(Model.Name).Create"
-		}
-      }
-    },
-    {
-      path: "@(Model.SplitName)/update/:id",
-      name: "Update@(Model.Name)",
-      component: () =>
-        import(
-          /* webpackChunkName: "update-@(Model.SplitName)" */ "@@/views/@(Model.ModuleSplitName)/@(Model.SplitName)/update-@(Model.SplitName).vue"
-        ),
-      meta: {
-        title: "修改@(Model.DisplayName)",
-        hidden: true,
-		  @if(Model.EnableAuthorization){
-        @:permission: "Pages.@(Model.ModuleName).@(Model.Name).Update"
-		}
-      }
+        title: '@(Model.DisplayName)管理',
+         @if(Model.EnableAuthorization){
+         @: roles:[@(Model.Name)]
+        }
+      },
     },
 
 ```
@@ -55,25 +24,28 @@
 // @(Model.ModuleSplitName).ts
 
 ```
-import { RouteConfig } from "vue-router";
 
-import Layout from "@@/layout/index.vue";
+import { AppRouteModule } from '/@/router/types';
+import { LAYOUT } from '/@/router/constant';
 
-const @(Model.ModuleSplitName)Router: RouteConfig = {
-  path: "/@(Model.ModuleSplitName)",
-  name: "@(Model.ModuleName)",
-  component: Layout,
+const @(Model.ModuleSplitName): AppRouteModule = {
+  path: '/@(Model.ModuleSplitName)',
+  name: '@(Model.ModuleName)',
+  component: LAYOUT,
   meta: {
-    title: "@(Model.ModuleName)",
-    icon: "@(Model.ModuleSplitName)",
-	  @if(Model.EnableAuthorization){
-    @:permission: "Pages.@(Model.ModuleName)"
+    // icon: 'ant-design:tool-outlined',
+    title: '@(Model.ModuleName)',
+     @if(Model.EnableAuthorization){
+    @:roles: ["@(Model.ModuleName)"]
 	}
   },
-  children: []
+  children: [
+   
+  ]
 };
 
-export default @(Model.ModuleSplitName)Router;
+export default @(Model.ModuleSplitName);
+
 
 ```
 

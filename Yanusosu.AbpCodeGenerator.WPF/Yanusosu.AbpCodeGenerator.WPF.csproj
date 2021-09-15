@@ -381,9 +381,6 @@
     <Content Include="Templates\Modules\Domain\README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Modules\EntityFrameworkCore\Configurations\EntityCfg.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Templates\vue\api\entity.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
