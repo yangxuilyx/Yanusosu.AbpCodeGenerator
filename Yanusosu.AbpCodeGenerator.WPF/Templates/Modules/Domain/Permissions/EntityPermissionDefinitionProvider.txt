@@ -1,0 +1,28 @@
+using Volo.Abp.Authorization.Permissions;
+using Volo.Abp.Localization;
+using @(Model.SolutionNameSpace).Localization;
+using @(Model.SolutionNameSpace).Permissions;
+
+namespace @(Model.Namespace).Permissions
+{
+    public class @(Model.Name)PermissionDefinitionProvider : PermissionDefinitionProvider
+    {
+        public override void Define(IPermissionDefinitionContext context)
+        {
+             var permissionGroup = context.GetGroupOrNull(@(Model.ConstName)Permissions.GroupName) ?? context.AddGroup(@(Model.ConstName)Permissions.GroupName);
+
+            var module = permissionGroup.GetPermissionOrNull(@(Model.ConstName)Permissions.@(Model.ModuleName)) ??
+                         permissionGroup.AddPermission(@(Model.ConstName)Permissions.@(Model.ModuleName), L(@(Model.ConstName)Permissions.@(Model.ModuleName)));
+
+            var @(Model.CamelCaseName) = module.AddChild(@(Model.Name)Permissions.@(Model.Name), L(@(Model.Name)Permissions.@(Model.Name)));
+            @(Model.CamelCaseName).AddChild(@(Model.Name)Permissions.Create, L(@(Model.Name)Permissions.Create));
+            @(Model.CamelCaseName).AddChild(@(Model.Name)Permissions.Update, L(@(Model.Name)Permissions.Update));
+            @(Model.CamelCaseName).AddChild(@(Model.Name)Permissions.Delete, L(@(Model.Name)Permissions.Delete));
+        }
+
+        private static LocalizableString L(string name)
+        {
+            return LocalizableString.Create<FrameworkResource>(name);
+        }
+    }
+}

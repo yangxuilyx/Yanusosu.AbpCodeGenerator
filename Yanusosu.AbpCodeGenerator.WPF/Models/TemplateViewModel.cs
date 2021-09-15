@@ -22,28 +22,22 @@ namespace Yanusosu.AbpCodeGenerator.WPF.Models
             {
                 //new TemplateViewModel()
                 //{
-                //    TemplatePath = Path.Combine(basePath,@"Templates\Modules\Domain","EntityManager.txt"),
-                //    SavePath = Path.Combine(model.FilePath,@"_GenerateCode\Modules\Domain\",module.Names),
-                //    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}",$"{module.Name}Manager.cs"),
-                //},
-                //new TemplateViewModel()
-                //{
                 //    TemplatePath = Path.Combine(basePath,@"Templates\Modules\Domain","README.txt"),
                 //    SavePath = Path.Combine(model.FilePath,@"_GenerateCode\Modules\Domain\",module.Names),
                 //    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}","README.md"),
                 //},
-                //new TemplateViewModel()
-                //{
-                //    TemplatePath = Path.Combine(basePath,@"Templates\Modules\Domain\Authorization","EntityAppPermissions.txt"),
-                //    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}\Authorization"),
-                //    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}\Authorization",$"{model.ClassName}AppPermissions.cs"),
-                //},
-                //new TemplateViewModel()
-                //{
-                //    TemplatePath = Path.Combine(basePath,@"Templates\Modules\Domain\Authorization","EntityAuthorizationProvider.txt"),
-                //    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}\Authorization"),
-                //    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}\Authorization",$"{model.ClassName}AuthorizationProvider.cs"),
-                //},
+                new TemplateViewModel()
+                {
+                    TemplatePath = Path.Combine(basePath,@"Templates\Modules\Domain\Permissions","EntityPermissions.txt"),
+                    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}\Permissions"),
+                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}\Permissions",$"{model.ClassName}Permissions.cs"),
+                },
+                new TemplateViewModel()
+                {
+                    TemplatePath = Path.Combine(basePath,@"Templates\Modules\Domain\Permissions","EntityPermissionDefinitionProvider.txt"),
+                    SavePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}\Permissions"),
+                    FilePath = Path.Combine(model.FilePath,$@"_GenerateCode\Modules\Domain\{module.Names}\Permissions",$"{model.ClassName}PermissionDefinitionProvider.cs"),
+                },
                 // Application 
                 new TemplateViewModel()
                 {

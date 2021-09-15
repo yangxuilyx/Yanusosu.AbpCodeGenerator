@@ -1,0 +1,13 @@
+﻿namespace @(Model.Namespace).Permissions
+{
+    public class @(Model.Name)Permissions
+    {
+        public const string @(Model.Name) = "@(Model.Name)";
+
+        public const string Create = "@(Model.Name).Create";
+
+        public const string Update = "@(Model.Name).Update";
+
+        public const string Delete = "@(Model.Name).Delete";
+    }
+}
